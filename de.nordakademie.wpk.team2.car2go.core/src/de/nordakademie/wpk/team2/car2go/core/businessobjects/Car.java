@@ -1,53 +1,72 @@
 package de.nordakademie.wpk.team2.car2go.core.businessobjects;
 
 public class Car implements ICar {
-
-	@Override
+	private String description;
+	private String registrationNumber;
+	private int fuelState;
+	private EState interiorState;
+	private EState exteriorState;
+	private Boolean vacantState;
+	private String location;
+	private GeoPoint coordinates;
+	
+	public GeoPoint getCoordinates() {
+		return coordinates;
+	}
+	public void setCoordinates(GeoPoint coordinates) {
+		this.coordinates = coordinates;
+	}
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return description;
 	}
-
-	@Override
-	public String getRegistrationNumber() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getFuelState() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public EState getInteriorState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public EState getExteriorState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean getVacantState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void setDescription(String description) {
-		// TODO Auto-generated method stub
-
+		this.description = description;
 	}
-
+	public String getRegistrationNumber() {
+		return registrationNumber;
+	}
+	public void setRegistrationNumber(String registrationNumber) {
+		this.registrationNumber = registrationNumber;
+	}
+	public int getFuelState() {
+		return fuelState;
+	}
+	public void setFuelState(int fuelState) {
+		this.fuelState = fuelState;
+	}
+	public EState getInteriorState() {
+		return interiorState;
+	}
+	public void setInteriorState(EState interiorState) {
+		this.interiorState = interiorState;
+	}
+	public EState getExteriorState() {
+		return exteriorState;
+	}
+	public void setExteriorState(EState exteriorState) {
+		this.exteriorState = exteriorState;
+	}
+	public Boolean getVacantState() {
+		return vacantState;
+	}
+	public void setVacantState(Boolean vacantState) {
+		this.vacantState = vacantState;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	@Override
+	public String toString() {
+		return "Car [description=" + description + ", registrationNumber="
+				+ registrationNumber + ", fuelState=" + fuelState
+				+ ", interiorState=" + interiorState + ", exteriorState="
+				+ exteriorState + ", vacantState=" + vacantState
+				+ ", location=" + location + ", coordinates=" + coordinates
+				+ "]";
+	}
+	
+	
 }

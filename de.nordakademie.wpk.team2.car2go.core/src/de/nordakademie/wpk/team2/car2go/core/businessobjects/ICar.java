@@ -9,4 +9,5 @@ public interface ICar {
 	public Boolean getVacantState();
 	public String getLocation();
 	public void setDescription(String description);
+	public GeoPoint getCoordinates();
 }

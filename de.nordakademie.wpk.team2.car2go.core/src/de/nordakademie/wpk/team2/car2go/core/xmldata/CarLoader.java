@@ -1,38 +1,90 @@
 package de.nordakademie.wpk.team2.car2go.core.xmldata;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.apache.log4j.Logger;
+
+import de.nordakademie.wpk.team2.car2go.core.businessobjects.Car;
+import de.nordakademie.wpk.team2.car2go.core.businessobjects.EState;
+import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
+import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
+
 public class CarLoader {
+	private static final Logger logger = Logger.getLogger(CarLoader.class);
 
-	
-	
-	public static void main(String[] args) {
-
-		JAXBContext context;
+	public List<ICar> getCarsFromApi() {
+		List<ICar> cars = new ArrayList<ICar>();
 		try {
-			context = JAXBContext.newInstance(Kml.class);
-		//Marshaller m = context.createMarshaller();
-		//m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		// m.marshal(myPM, handler)
-
-		Unmarshaller um = context.createUnmarshaller();
-		Kml kml = (Kml) um.unmarshal(new URL(
-				"http://www.car2go.com/api/V1.0/ulm/vacant"));
+			Kml kml = this.getXmlObjects();
 		
-		System.out.println(kml.getDocument().getPlacemark().get(0).getName());
-		
+			for (Placemark placemark: kml.getDocument().getPlacemark()) {
+				Car car = new Car();
+				car.setRegistrationNumber(placemark.getName());
+				
+				for (Data data : placemark.getExtendedData().getData()) {
+					if (data.getName().equalsIgnoreCase("interior")) {
+						car.setInteriorState(EState.valueOf(data.getValue()));
+					}
+					else if (data.getName().equalsIgnoreCase("exterior")) {
+						car.setExteriorState(EState.valueOf(data.getValue()));
+					}
+					else if (data.getName().equalsIgnoreCase("fuel")) {
+						car.setFuelState(Integer.valueOf(data.getValue()));
+					}
+				}
+				
+				String[] pointSplit = placemark.getPoint().getCoordinates().toString().split(",");
+				//long, lati
+				GeoPoint geoPoint = new GeoPoint(Float.valueOf(pointSplit[0]),Float.valueOf(pointSplit[1]));
+				car.setCoordinates(geoPoint);
+				
+				;
+				car.setLocation(placemark.getDescription().split("<br/>")[0]);
+				car.setVacantState(true);
+				
+				cars.add(car);
+							
+			}
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
+			logger.info("Unable to fetch KML.");
 			e.printStackTrace();
 		}
-		catch (Exception e) {
+		
+
+		
+		return cars;
+
+	}
+
+	private Kml getXmlObjects() throws JAXBException {
+
+		JAXBContext context;
+		context = JAXBContext.newInstance(Kml.class);
+
+		Unmarshaller um = context.createUnmarshaller();
+		Kml kml = null;
+		try {
+			kml = (Kml) um.unmarshal(new URL(
+					"http://www.car2go.com/api/V1.0/ulm/vacant"));
+		} catch (MalformedURLException e) {
+			logger.info("Unable to call Car2Go API! Please contact your local system administrator.");
+			e.printStackTrace();
 		}
+		return kml;
 
-
+	}
+	
+	public static void main(String[] args) {
+		CarLoader carloader = new CarLoader();
+		for (ICar car : carloader.getCarsFromApi()) {
+			System.out.println(car.toString());
+		};
 	}
 }

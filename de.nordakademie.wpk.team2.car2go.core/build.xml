@@ -1,0 +1,38 @@
+<project name="de.nordakademie.wpk.team2.car2go.core">
+	<target name="init">
+		<delete dir="dist" failonerror="false"></delete>
+		<mkdir dir="dist/bin"/>
+	</target>
+	
+	<target name="compile" depends="init">
+		<javac srcdir="src" destdir="dist/bin">
+			<classpath>
+				<fileset dir="lib">
+					<include name = "*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+		<copy todir="dist/bin">
+			<fileset dir="src">
+				<include name="*.xml"/>
+				<include name="*.properties"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="create.war" depends="compile">
+		<war destfile="dist/de.nordakademie.wpk.team2.car2go.core.war" webxml="WEB-INF/web.xml">
+			<classes dir="dist/bin"></classes>
+			<lib dir="lib" includes="*.jar"></lib>
+		</war>
+	</target>
+	
+	<target name="create.interface" depends="compile">
+		<jar destfile="dist/de.nordakademie.wpk.team2.car2go.interface.jar">
+			<fileset dir="dist/bin">
+				<include name="**/I*"/>
+				<include name="**/data/*"/>
+			</fileset>
+		</jar>
+	</target>
+</project>

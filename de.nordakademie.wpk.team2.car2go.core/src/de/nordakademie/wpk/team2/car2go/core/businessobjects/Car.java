@@ -13,51 +13,67 @@ public class Car implements ICar {
 	public GeoPoint getCoordinates() {
 		return coordinates;
 	}
+	
 	public void setCoordinates(GeoPoint coordinates) {
 		this.coordinates = coordinates;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public String getRegistrationNumber() {
 		return registrationNumber;
 	}
+	
 	public void setRegistrationNumber(String registrationNumber) {
 		this.registrationNumber = registrationNumber;
 	}
+	
 	public int getFuelState() {
 		return fuelState;
 	}
+	
 	public void setFuelState(int fuelState) {
 		this.fuelState = fuelState;
 	}
+	
 	public EState getInteriorState() {
 		return interiorState;
 	}
+	
 	public void setInteriorState(EState interiorState) {
 		this.interiorState = interiorState;
 	}
+	
 	public EState getExteriorState() {
 		return exteriorState;
 	}
+	
 	public void setExteriorState(EState exteriorState) {
 		this.exteriorState = exteriorState;
 	}
+	
 	public Boolean getVacantState() {
 		return vacantState;
 	}
+	
 	public void setVacantState(Boolean vacantState) {
 		this.vacantState = vacantState;
 	}
+	
 	public String getLocation() {
 		return location;
 	}
+	
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	
 	@Override
 	public String toString() {
 		return "Car [description=" + description + ", registrationNumber="

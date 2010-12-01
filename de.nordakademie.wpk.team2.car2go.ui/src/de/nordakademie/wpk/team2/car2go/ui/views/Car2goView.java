@@ -1,10 +1,12 @@
 package de.nordakademie.wpk.team2.car2go.ui.views;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
@@ -19,6 +21,10 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.part.ViewPart;
 
+import de.nordakademie.wpk.team2.car2go.core.ICarService;
+import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
+import de.nordakademie.wpk.team2.car2go.ui.Activator;
+
 public class Car2goView extends ViewPart {
 
 	public static final String ID = "de.nordakademie.wpk.team2.car2go.ui.views.Car2goView"; //$NON-NLS-1$
@@ -26,6 +32,7 @@ public class Car2goView extends ViewPart {
 	private Combo comboView;
 	private final String TANKSTAND = "Tankstand";
 	private final String GEOGRAFIE = "Geografie";
+	private String username;
 
 	public Car2goView() {
 	}
@@ -86,12 +93,16 @@ public class Car2goView extends ViewPart {
 		treeColumnGeoPoint.setToolTipText("Aktuelle Geokoordinaten");
 		treeColumnGeoPoint.setWidth(100);
 		treeColumnGeoPoint.setText("Geokoordinaten");
-
+		
 		TreeColumn treeColumnLocation = new TreeColumn(carTree, SWT.NONE);
 		treeColumnLocation.setToolTipText("Aktueller Standort");
 		treeColumnLocation.setWidth(100);
 		treeColumnLocation.setText("Standort");
 
+
+		// get the username
+		getUsername();
+		
 		//treeViewer.setContentProvider(new ArrayContentProvider());
 		//treeViewer.setLabelProvider(new CarLabelProvider());
 		//treeViewer.setInput(getCars());
@@ -123,21 +134,43 @@ public class Car2goView extends ViewPart {
 		carTree.setFocus();
 	}
 
+	/*
+	 * return the Cars separated by bookmarked and vacant as a List<TreeNode>
+	 * @return The A list of TreeNodes with cars and vacant or bookmarked.
+	 */
 	private List<TreeNode> getCars() {
 		ArrayList<TreeNode> tree = new ArrayList<TreeNode>();
 
 		TreeNode nodeBookmarked = new TreeNode("Gemerkt");
 		TreeNode nodeVakant = new TreeNode("Vakant");
 
-		// getCars
+		ICarService ics = Activator.getDefault().getCarService();
+		Set<ICar> vacantCars = ics.getVacantCars(username);
+		Set<ICar> bookmarkedCars = ics.getBookmarkedCars(username);
 
-		// iterator über cars
-		// if car = bookmarked
-		// --> setParent(nodeBookmarked)
-		// esle
-		// setParent(nodeVakant)
+		Iterator<ICar> vacantIterator = vacantCars.iterator();
+		while (vacantIterator.hasNext()) {
+			ICar iCar = (ICar) vacantIterator.next();
+			
+			TreeNode node = new TreeNode(iCar);
+			node.setParent(nodeVakant);
+		}
+		
+		Iterator<ICar> bookmarkedIterator = vacantCars.iterator();
+		while (bookmarkedIterator.hasNext()) {
+			ICar iCar = (ICar) bookmarkedIterator.next();
+			
+			TreeNode node = new TreeNode(iCar);
+			node.setParent(nodeBookmarked);
+		}
 
 		return tree;
 	}
+	
+	private void getUsername() {
+		// TODO Auto-generated method stub
+		username = "TestUser";
+	}
+	
 
 }

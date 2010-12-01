@@ -7,8 +7,7 @@ Bundle-Activator: de.nordakademie.wpk.team2.car2go.ui.Activator
 Bundle-Vendor: Team 2
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.ui.forms,
- de.nordakademie.wpk.team2.car2go.iface
+ org.eclipse.ui.forms
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

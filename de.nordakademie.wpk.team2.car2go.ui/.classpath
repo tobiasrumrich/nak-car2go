@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="swing2swt.jar"/>
+	<classpathentry kind="lib" path="car2go.core.jar"/>
+	<classpathentry kind="lib" path="resources/icons/car2go-100x100.png"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

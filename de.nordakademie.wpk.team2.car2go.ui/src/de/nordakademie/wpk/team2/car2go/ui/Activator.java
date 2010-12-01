@@ -2,6 +2,7 @@ package de.nordakademie.wpk.team2.car2go.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
 import de.nordakademie.wpk.team2.car2go.core.ICarService;
 
@@ -50,10 +51,9 @@ public class Activator extends AbstractUIPlugin {
 	}
 
 	public ICarService getCarService() {
-		return null;
-//		ServiceReference serviceReference = this.getBundle().getBundleContext().getServiceReference(ICarService.class.getName());
-//		
-//		return (ICarService) this.getBundle().getBundleContext().getService(serviceReference);
+		ServiceReference serviceReference = this.getBundle().getBundleContext().getServiceReference(ICarService.class.getName());
+		
+		return (ICarService) this.getBundle().getBundleContext().getService(serviceReference);
 		
 	}
 }

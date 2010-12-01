@@ -1,7 +1,6 @@
 package de.nordakademie.wpk.team2.car2go.core;
 
-import java.util.List;
-
+import java.util.Set;
 
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
@@ -16,11 +15,11 @@ public interface ICarStorage {
 	public void addCar(ICar car) throws IllegalRegistrationNumberException;
 
 	/**
-	 * Return the stored ICar objects as a List<ICar>
+	 * Return the stored ICar objects as a Set<ICar>
 	 * 
-	 * @return List<ICar>
+	 * @return Set<ICar>
 	 */
-	public List<ICar> getCarList();
+	public Set<ICar> getCarSet();
 
 	/**
 	 * Removes a car from the storage.
@@ -40,5 +39,13 @@ public interface ICarStorage {
 	public void removeCar(String registration_number)
 			throws RegistrationNumberNotFoundException,
 			IllegalRegistrationNumberException, RegistrationNumberNotFoundException;
+	
+	/**
+	 * Finds a car by it's registration number
+	 * @param registrationNumber
+	 * @return
+	 * @throws RegistrationNumberNotFoundException 
+	 */
+	public ICar findCar(String registrationNumber) throws RegistrationNumberNotFoundException;
 
 }

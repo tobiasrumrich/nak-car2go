@@ -11,7 +11,7 @@ import de.nordakademie.wpk.team2.car2go.core.ICarService;
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "de.nordakademie.wpk.todolist.ui"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "de.nordakademie.wpk.team2.car2go.ui"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;

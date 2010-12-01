@@ -6,7 +6,8 @@
       <view
             class="de.nordakademie.wpk.team2.car2go.ui.views.Car2goView"
             id="de.nordakademie.wpk.team2.car2go.ui.views.Car2goView"
-            name="Car2Go">
+            name="Car2Go"
+            restorable="true">
       </view>
    </extension>
    <extension

@@ -1,4 +1,4 @@
-package de.nordakademie.wpk.team2.car2go.core;
+package de.nordakademie.wpk.team2.car2go.interfaces;
 
 public interface ICarRegistrationNumberValidator {
 	/**

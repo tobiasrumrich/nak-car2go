@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
+import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
 
 public class GoogleMapsLoader {
 	// Verwenden der Maps: new Image(Display.getCurrent(), new

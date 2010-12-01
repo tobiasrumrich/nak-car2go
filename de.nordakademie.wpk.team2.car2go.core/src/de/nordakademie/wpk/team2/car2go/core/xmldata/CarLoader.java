@@ -2,8 +2,8 @@ package de.nordakademie.wpk.team2.car2go.core.xmldata;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,13 +14,13 @@ import org.apache.log4j.Logger;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.Car;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.EState;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
+import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
 
 public class CarLoader {
 	private static final Logger logger = Logger.getLogger(CarLoader.class);
 
-	public List<ICar> getCarsFromApi() {
-		List<ICar> cars = new ArrayList<ICar>();
+	public Set<ICar> getCarsFromApi() {
+		Set<ICar> cars = new HashSet<ICar>();
 		try {
 			Kml kml = this.getXmlObjects();
 		

@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
+import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.interfaces.ICarRegistrationNumberValidator;
+import de.nordakademie.wpk.team2.car2go.interfaces.ICarStorage;
 
 /**
  * This class stores

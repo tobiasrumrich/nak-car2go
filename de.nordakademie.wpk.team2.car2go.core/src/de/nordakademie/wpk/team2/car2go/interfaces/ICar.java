@@ -1,4 +1,7 @@
-package de.nordakademie.wpk.team2.car2go.core.businessobjects;
+package de.nordakademie.wpk.team2.car2go.interfaces;
+
+import de.nordakademie.wpk.team2.car2go.core.businessobjects.EState;
+import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
 
 public interface ICar {
 	/**

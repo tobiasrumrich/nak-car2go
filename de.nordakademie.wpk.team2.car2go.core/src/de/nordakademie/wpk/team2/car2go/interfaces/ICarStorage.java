@@ -1,8 +1,7 @@
-package de.nordakademie.wpk.team2.car2go.core;
+package de.nordakademie.wpk.team2.car2go.interfaces;
 
 import java.util.Set;
 
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
 
@@ -20,6 +19,7 @@ public interface ICarStorage {
 	 * @return Set<ICar>
 	 */
 	public Set<ICar> getCarSet();
+	
 
 	/**
 	 * Removes a car from the storage.

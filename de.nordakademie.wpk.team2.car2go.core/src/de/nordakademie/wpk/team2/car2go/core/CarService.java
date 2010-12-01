@@ -6,17 +6,24 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
 import de.nordakademie.wpk.team2.car2go.core.connectors.GoogleMapsLoader;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
+import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.interfaces.ICarService;
+import de.nordakademie.wpk.team2.car2go.interfaces.ICarStorage;
+import de.nordakademie.wpk.team2.car2go.interfaces.IUpdateableCarStorageOwner;
 
-public class CarService implements ICarService {
+public class CarService implements ICarService, IUpdateableCarStorageOwner {
 	private static final Logger logger = Logger.getLogger(CarService.class);
 	private ICarStorage carStorage = new CarStorage();
 
 	private HashMap<String, HashSet<ICar>> bookmarks = new HashMap<String, HashSet<ICar>>();
 	private GoogleMapsLoader googleMapsLoader = new GoogleMapsLoader();
 
+	public CarService() {
+		
+	}
+	
 	@Override
 	public ICar getCarData(String registrationNumber) throws RegistrationNumberNotFoundException {
 		return carStorage.findCar(registrationNumber);
@@ -91,6 +98,13 @@ public class CarService implements ICarService {
 	public byte[] getMapForCar(String registrationNumber,int width, int height, int zoom) throws RegistrationNumberNotFoundException {
 		return googleMapsLoader.getMapForCar(carStorage.findCar(registrationNumber), width, height, zoom);
 		
+	}
+
+	@Override
+	public void pushCarStorageUdate(Set<ICar> newCarSet) {
+		Set<ICar> carSet = carStorage.getCarSet();
+		carSet.retainAll(newCarSet);
+		carSet.addAll(newCarSet);
 	}
 
 }

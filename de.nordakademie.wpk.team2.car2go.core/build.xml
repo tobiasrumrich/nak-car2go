@@ -30,8 +30,7 @@
 	<target name="create.interface" depends="compile">
 		<jar destfile="dist/de.nordakademie.wpk.team2.car2go.interface.jar">
 			<fileset dir="dist/bin">
-				<include name="**/I*"/>
-				<include name="**/data/*"/>
+				<include name="de/nordakademie/wpk/team2/car2go/interfaces/*" />
 			</fileset>
 		</jar>
 	</target>

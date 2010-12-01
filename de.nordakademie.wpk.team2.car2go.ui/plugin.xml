@@ -28,11 +28,15 @@
          point="org.eclipse.ui.commands">
       <command
             id="de.nordakademie.wpk.team2.car2go.ui.addBookmark"
-            name="Auto merkenen">
+            name="Auto merken">
       </command>
       <command
             id="de.nordakademie.wpk.team2.car2go.ui.removeBookmark"
             name="Aus den Favoriten entfernen">
+      </command>
+      <command
+            id="de.nordakademie.wpk.team2.car2go.ui.addCar"
+            name="Detailansicht">
       </command>
    </extension>
    <extension
@@ -45,6 +49,10 @@
             class="de.nordakademie.wpk.team2.car2go.ui.handler.RemoveBookmarkHandler"
             commandId="de.nordakademie.wpk.team2.car2go.ui.removeBookmark">
       </handler>
+      <handler
+            class="de.nordakademie.wpk.team2.car2go.ui.handler.CarEditHandler"
+            commandId="de.nordakademie.wpk.team2.car2go.ui.addCar">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.editors">
@@ -53,14 +61,6 @@
             default="false"
             id="de.nordakademie.wpk.team2.car2go.ui.editor.CarEditor"
             name="Auto">
-      </editor>
-   </extension>
-   <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            default="false"
-            id="de.nordakademie.wpk.team2.car2go.ui.editor1"
-            name="name">
       </editor>
    </extension>
 </plugin>

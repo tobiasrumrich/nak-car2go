@@ -21,11 +21,12 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 	private GoogleMapsLoader googleMapsLoader = new GoogleMapsLoader();
 
 	public CarService() {
-		
+
 	}
-	
+
 	@Override
-	public ICar getCarData(String registrationNumber) throws RegistrationNumberNotFoundException {
+	public ICar getCarData(String registrationNumber)
+			throws RegistrationNumberNotFoundException {
 		return carStorage.findCar(registrationNumber);
 	}
 
@@ -82,22 +83,24 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 	public Set<ICar> getBookmarkedCars(String username) {
 		if (bookmarks.containsKey(username)) {
 			return bookmarks.get(username);
-		}
-		else {
+		} else {
 			return new HashSet<ICar>();
 		}
 	}
 
 	@Override
-	public void setComment(String registrationNumber, String comment) throws RegistrationNumberNotFoundException {
+	public void setComment(String registrationNumber, String comment)
+			throws RegistrationNumberNotFoundException {
 		carStorage.findCar(registrationNumber).setDescription(comment);
-		
+
 	}
 
 	@Override
-	public byte[] getMapForCar(String registrationNumber,int width, int height, int zoom) throws RegistrationNumberNotFoundException {
-		return googleMapsLoader.getMapForCar(carStorage.findCar(registrationNumber), width, height, zoom);
-		
+	public byte[] getMapForCar(String registrationNumber, int width,
+			int height, int zoom) throws RegistrationNumberNotFoundException {
+		return googleMapsLoader.getMapForCar(
+				carStorage.findCar(registrationNumber), width, height, zoom);
+
 	}
 
 	@Override
@@ -105,6 +108,13 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 		Set<ICar> carSet = carStorage.getCarSet();
 		carSet.retainAll(newCarSet);
 		carSet.addAll(newCarSet);
+
+		for (String key : bookmarks.keySet()) {
+			HashSet<ICar> hashSet = bookmarks.get(key);
+			for (ICar iCar : hashSet) {
+				iCar.setVacantState(hashSet.contains(iCar));
+			}
+		}
 	}
 
 }

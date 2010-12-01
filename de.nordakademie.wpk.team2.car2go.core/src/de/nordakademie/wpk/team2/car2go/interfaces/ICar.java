@@ -39,6 +39,12 @@ public interface ICar {
 	public Boolean getVacantState();
 	
 	/**
+	 * Sets the vacant state of the car.
+	 * @param vacantState
+	 */
+	public void setVacantState(Boolean vacantState);
+	
+	/**
 	 * Returns an adress that is close to the place where the car is parked.
 	 * @return String address
 	 */

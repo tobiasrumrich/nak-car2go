@@ -1,13 +1,8 @@
 package de.nordakademie.wpk.team2.car2go.ui.views;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.TreeNode;
+import org.eclipse.jface.viewers.TreeNodeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -21,17 +16,16 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.part.ViewPart;
 
-import de.nordakademie.wpk.team2.car2go.core.ICarService;
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
-import de.nordakademie.wpk.team2.car2go.ui.Activator;
-
 public class Car2goView extends ViewPart {
 
 	public static final String ID = "de.nordakademie.wpk.team2.car2go.ui.views.Car2goView"; //$NON-NLS-1$
-	private Tree carTree;
-	private Combo comboView;
 	private final String TANKSTAND = "Tankstand";
 	private final String GEOGRAFIE = "Geografie";
+	public static final String BOOKMARKED = "Gemerkt";
+	public static final String VACANT = "Vakant";
+
+	private Tree carTree;
+	private Combo comboView;
 	private String username;
 
 	public Car2goView() {
@@ -58,8 +52,11 @@ public class Car2goView extends ViewPart {
 
 		comboView.addSelectionListener(new SelectionAdapter() {
 			@Override
+			/**
+			 * redraws the carTree with the selected View
+			 */
 			public void widgetSelected(SelectionEvent e) {
-				changeView();
+				carTree.redraw();
 			}
 		});
 
@@ -77,6 +74,27 @@ public class Car2goView extends ViewPart {
 		treeColumnRegistrationNumber.setWidth(100);
 		treeColumnRegistrationNumber.setText("Kennzeichen");
 
+		//TODO Sortierung und so
+		/*
+        SelectionAdapter adapter = new SelectionAdapter() {
+            private SORTTYPE sorttype = SORTTYPE.ASC;
+            public void widgetSelected(SelectionEvent e) {
+                assert e.widget instanceof TreeColumn : "Widget is not a TreeColumn";
+                TreeColumn column = (TreeColumn) e.widget;
+                tree.setSortColumn(column);
+                if (sorttype == SORTTYPE.ASC) {
+                    sorttype = SORTTYPE.DESC;
+                    tree.setSortDirection(SWT.DOWN);
+                }
+                else {
+                    sorttype = SORTTYPE.ASC;
+                    tree.setSortDirection(SWT.UP);
+                }
+                tv.setComparator(new PersonTreeComparator(sorttype));
+            }
+        };
+		*/
+		
 		TreeColumn treeColumnFuelState = new TreeColumn(carTree, SWT.LEFT);
 		treeColumnFuelState.setWidth(100);
 		treeColumnFuelState.setText("Tankstand");
@@ -93,31 +111,23 @@ public class Car2goView extends ViewPart {
 		treeColumnGeoPoint.setToolTipText("Aktuelle Geokoordinaten");
 		treeColumnGeoPoint.setWidth(100);
 		treeColumnGeoPoint.setText("Geokoordinaten");
-		
+
 		TreeColumn treeColumnLocation = new TreeColumn(carTree, SWT.NONE);
 		treeColumnLocation.setToolTipText("Aktueller Standort");
 		treeColumnLocation.setWidth(100);
 		treeColumnLocation.setText("Standort");
 
-
-		// get the username
+		// get the username from the user
 		getUsername();
-		
-		//treeViewer.setContentProvider(new ArrayContentProvider());
-		//treeViewer.setLabelProvider(new CarLabelProvider());
-		//treeViewer.setInput(getCars());
+
+		treeViewer.setContentProvider(new TreeNodeContentProvider());
+		treeViewer.setLabelProvider(new CarLabelProvider());
+		treeViewer.setInput(getCars());
+		treeViewer.expandAll();
 
 		new Label(container, SWT.NONE);
 
 		initializeMenu();
-	}
-
-	protected void changeView() {
-		if (comboView.getText().equals(GEOGRAFIE)) {
-
-		} else {
-
-		}
 	}
 
 	// private
@@ -125,6 +135,7 @@ public class Car2goView extends ViewPart {
 	 * Initialize the menu.
 	 */
 	private void initializeMenu() {
+		// TODO menu manager
 		IMenuManager menuManager = getViewSite().getActionBars()
 				.getMenuManager();
 	}
@@ -134,43 +145,75 @@ public class Car2goView extends ViewPart {
 		carTree.setFocus();
 	}
 
-	/*
+	/**
 	 * return the Cars separated by bookmarked and vacant as a List<TreeNode>
+	 * 
 	 * @return The A list of TreeNodes with cars and vacant or bookmarked.
 	 */
-	private List<TreeNode> getCars() {
-		ArrayList<TreeNode> tree = new ArrayList<TreeNode>();
+	private TreeNode[] getCars() {
+		//ArrayList<TreeNode> tree = new ArrayList<TreeNode>();
 
-		TreeNode nodeBookmarked = new TreeNode("Gemerkt");
-		TreeNode nodeVakant = new TreeNode("Vakant");
+		// TODO Gemerkt und Vakant als konstante
 
+		TreeNode[] tree = new TreeNode[2];
+		
+		TreeNode nodeBookmarked = new TreeNode(BOOKMARKED);
+		nodeBookmarked.setParent(null);
+		tree[0] = nodeBookmarked;
+		TreeNode nodeVakant = new TreeNode(VACANT);
+		nodeVakant.setParent(null);
+		tree[1] = nodeVakant;
+		
+		
+		System.out.println(comboView.getText());
+		
+		
+		/*
 		ICarService ics = Activator.getDefault().getCarService();
 		Set<ICar> vacantCars = ics.getVacantCars(username);
 		Set<ICar> bookmarkedCars = ics.getBookmarkedCars(username);
 
+		// TODO Iterator in eigene Methode kapseln
 		Iterator<ICar> vacantIterator = vacantCars.iterator();
 		while (vacantIterator.hasNext()) {
 			ICar iCar = (ICar) vacantIterator.next();
-			
+
 			TreeNode node = new TreeNode(iCar);
 			node.setParent(nodeVakant);
-		}
-		
-		Iterator<ICar> bookmarkedIterator = vacantCars.iterator();
-		while (bookmarkedIterator.hasNext()) {
-			ICar iCar = (ICar) bookmarkedIterator.next();
-			
-			TreeNode node = new TreeNode(iCar);
-			node.setParent(nodeBookmarked);
+
+			// TODO Geografie oder Tankstand als child einfügen
+			if (comboView.getText().equals(GEOGRAFIE)) {
+
+			} else {
+
+			}
 		}
 
+		Iterator<ICar> bookmarkedIterator = bookmarkedCars.iterator();
+		while (bookmarkedIterator.hasNext()) {
+			ICar iCar = (ICar) bookmarkedIterator.next();
+
+			TreeNode node = new TreeNode(iCar);
+			node.setParent(nodeBookmarked);
+
+			// TODO Geografie oder Tankstand als child einfügen
+			if (comboView.getText().equals(GEOGRAFIE)) {
+
+			} else {
+
+			}
+		}
+		*/
 		return tree;
 	}
-	
+
+	/**
+	 * Invokes a Dialog to get the users user name to identify his bookmarked
+	 * cars
+	 */
 	private void getUsername() {
 		// TODO Auto-generated method stub
 		username = "TestUser";
 	}
-	
 
 }

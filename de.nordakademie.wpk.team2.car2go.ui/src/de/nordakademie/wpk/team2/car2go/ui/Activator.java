@@ -50,6 +50,10 @@ public class Activator extends AbstractUIPlugin {
 		return plugin;
 	}
 
+	/**
+	 * Receive the CarService interface from the Server
+	 * @retun reference to the CarServer
+	 */
 	public ICarService getCarService() {
 		ServiceReference serviceReference = this.getBundle().getBundleContext().getServiceReference(ICarService.class.getName());
 		

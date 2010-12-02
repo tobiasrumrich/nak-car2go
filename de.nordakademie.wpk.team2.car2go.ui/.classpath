@@ -6,5 +6,7 @@
 	<classpathentry kind="lib" path="swing2swt.jar"/>
 	<classpathentry kind="lib" path="car2go.core.jar"/>
 	<classpathentry kind="lib" path="resources/icons/car2go-100x100.png"/>
+	<classpathentry kind="lib" path="resources/icons/bookmarked_icon.png"/>
+	<classpathentry kind="lib" path="resources/icons/vacant_icon.png"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

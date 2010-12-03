@@ -17,6 +17,8 @@ import org.eclipse.ui.part.EditorPart;
 import com.swtdesigner.ResourceManager;
 
 public class CarEditor extends EditorPart {
+	public CarEditor() {
+	}
 
 	public static final String ID = "de.nordakademie.wpk.todolist.ui.editor.CarEditor"; //$NON-NLS-1$
 	public static final int PROP_SAVED = 42;
@@ -29,10 +31,11 @@ public class CarEditor extends EditorPart {
 	private Text txtLocation;
 	private Text txtDescription;
 	private boolean dirty;
+	private Label lblGoogleMapsPosition;
 
 	@Override
 	public void createPartControl(Composite parent) {
-		parent.setLayout(new GridLayout(2, false));
+		parent.setLayout(new GridLayout(3, false));
 
 		Label lblRegistrationNumber = new Label(parent, SWT.NONE);
 		lblRegistrationNumber.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER,
@@ -44,6 +47,10 @@ public class CarEditor extends EditorPart {
 				true, false, 1, 1);
 		gd_txtRegistrationNumber.minimumWidth = 200;
 		txtRegistrationNumber.setLayoutData(gd_txtRegistrationNumber);
+		
+		lblGoogleMapsPosition = new Label(parent, SWT.NONE);
+		lblGoogleMapsPosition.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 6));
+		lblGoogleMapsPosition.setText("GoogleMaps Bild");
 
 		Label lblFuelState = new Label(parent, SWT.NONE);
 		lblFuelState.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
@@ -109,14 +116,19 @@ public class CarEditor extends EditorPart {
 		label.setImage(ResourceManager
 				.getPluginImage("de.nordakademie.wpk.team2.car2go.ui",
 						"resources/icons/no.png"));
+		new Label(parent, SWT.NONE);
 
 		Label lblDescription = new Label(parent, SWT.NONE);
 		lblDescription.setText("Bemerkung");
 		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
 
 		txtDescription = new Text(parent, SWT.BORDER | SWT.MULTI);
 		txtDescription.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
-				true, 2, 1));
+				true, 3, 1));
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
+		new Label(parent, SWT.NONE);
 
 		// setup widgets
 		setupWidgetsWithData();
@@ -153,6 +165,9 @@ public class CarEditor extends EditorPart {
 						.getLongitude()));
 		txtLocation.setText(editorInput.getCar().getLocation());
 		txtDescription.setText(editorInput.getCar().getDescription());
+		
+		//Google maps picture
+		//lblGoogleMapsPosition.setImage(editorInput.getCar().get);
 	}
 
 	@Override

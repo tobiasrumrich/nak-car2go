@@ -1,4 +1,4 @@
-package de.nordakademie.wpk.team2.car2go.ui.views;
+package de.nordakademie.wpk.team2.car2go.ui.providers;
 
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -8,6 +8,7 @@ import org.eclipse.swt.graphics.Image;
 import com.swtdesigner.ResourceManager;
 
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
+import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
 
 public class CarLabelProvider extends LabelProvider implements
 		ITableLabelProvider {
@@ -16,31 +17,39 @@ public class CarLabelProvider extends LabelProvider implements
 	public Image getColumnImage(Object element, int columnIndex) {
 		TreeNode node = (TreeNode) element;
 
-		if(node.getValue() instanceof String && columnIndex == 0) {
-			if(node.getValue().equals(Car2goView.BOOKMARKED)){
-				return ResourceManager.getPluginImage("de.nordakademie.wpk.team2.car2go.ui", "resources/icons/bookmarked_icon.png");
-			}else if (node.getValue().equals(Car2goView.VACANT)) {
-				return ResourceManager.getPluginImage("de.nordakademie.wpk.team2.car2go.ui", "resources/icons/vacant_icon.png");
+		if (node.getValue() instanceof String && columnIndex == 0) {
+			if (node.getValue().equals(Car2goView.BOOKMARKED)) {
+				return ResourceManager.getPluginImage(
+						"de.nordakademie.wpk.team2.car2go.ui",
+						"resources/icons/bookmarked_icon.png");
+			} else if (node.getValue().equals(Car2goView.VACANT)) {
+				return ResourceManager.getPluginImage(
+						"de.nordakademie.wpk.team2.car2go.ui",
+						"resources/icons/vacant_icon.png");
 			}
-		}else if (node instanceof ICar && columnIndex == 0) {
+		} else if (node instanceof ICar && columnIndex == 0) {
 			ICar car = (ICar) node.getValue();
-			if(car.getVacantState() == true){
-				return ResourceManager.getPluginImage("de.nordakademie.wpk.team2.car2go.ui", "resources/icons/vacant_icon.png");				
-			}else {
-				return ResourceManager.getPluginImage("de.nordakademie.wpk.team2.car2go.ui", "resources/icons/bookmarked_icon.png");
+			if (car.getVacantState() == true) {
+				return ResourceManager.getPluginImage(
+						"de.nordakademie.wpk.team2.car2go.ui",
+						"resources/icons/vacant_icon.png");
+			} else {
+				return ResourceManager.getPluginImage(
+						"de.nordakademie.wpk.team2.car2go.ui",
+						"resources/icons/bookmarked_icon.png");
 			}
 		}
-		return null;		
+		return null;
 	}
 
 	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		TreeNode node = (TreeNode) element;
 
-		if(node.getValue() instanceof String && columnIndex == 0) {
+		if (node.getValue() instanceof String && columnIndex == 0) {
 			return ((String) node.getValue());
 		}
-		
+
 		if (node.getValue() instanceof ICar) {
 			ICar car = (ICar) node.getValue();
 			switch (columnIndex) {
@@ -60,8 +69,8 @@ public class CarLabelProvider extends LabelProvider implements
 			default:
 				return "";
 			}
-		} else if(node.getValue() instanceof String && columnIndex == 0) {
-				return ((String) node.getValue());
+		} else if (node.getValue() instanceof String && columnIndex == 0) {
+			return ((String) node.getValue());
 		}
 		return "";
 	}

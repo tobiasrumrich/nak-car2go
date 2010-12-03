@@ -166,7 +166,7 @@ public class CarEditor extends EditorPart {
 		txtLocation.setText(editorInput.getCar().getLocation());
 		txtDescription.setText(editorInput.getCar().getDescription());
 		
-		//Google maps picture
+		//TODO Google maps picture
 		//lblGoogleMapsPosition.setImage(editorInput.getCar().get);
 	}
 

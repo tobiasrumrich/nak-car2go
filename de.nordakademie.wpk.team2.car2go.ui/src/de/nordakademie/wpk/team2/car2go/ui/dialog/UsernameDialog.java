@@ -82,11 +82,13 @@ public class UsernameDialog extends TitleAreaDialog {
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
+		Button okButton = createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
 				true);
+		okButton.setText("Anmelden");
 		
-		createButton(parent, IDialogConstants.CANCEL_ID,
+		Button cancelButton = createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
+		cancelButton.setText("Ohne Anmeldung");
 	}
 
 	/**

@@ -1,5 +1,10 @@
 package de.nordakademie.wpk.team2.car2go.interfaces;
 
+/**
+ * 
+ * @author Rumrich, Moehring
+ *
+ */
 public interface ICarRegistrationNumberValidator {
 	/**
 	 * Valdiates the registration number

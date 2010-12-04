@@ -2,12 +2,19 @@ package de.nordakademie.wpk.team2.car2go.core;
 
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import de.nordakademie.wpk.team2.car2go.core.xmldata.CarLoader;
 import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
 import de.nordakademie.wpk.team2.car2go.interfaces.IUpdateableCarStorageOwner;
 
+/**
+ * 
+ * @author Rumrich, Moehring
+ *
+ */
 public class StorageUpdater extends Thread {
-
+	private static final Logger logger = Logger.getLogger(CarStorage.class);
 	private IUpdateableCarStorageOwner carService;
 	private int updateInterval;
 
@@ -22,12 +29,20 @@ public class StorageUpdater extends Thread {
 	 */
 	public StorageUpdater(IUpdateableCarStorageOwner carService,
 			int updateInterval) {
-		if (updateInterval < 0)
+		logger.info("Initializing Updateservice for storage.");
+
+		if (updateInterval < 0) {
+			logger.error("Error: Update interval must be a positive int.");
 			throw new IllegalArgumentException(
 					"Update interval must be a positive int.");
-		if (carService == null)
+		}
+
+		if (carService == null) {
+			logger.error("Error: no CarService specified!");
 			throw new IllegalArgumentException(
 					"This could have resulted in a null pointer exception: The car service must not be null.");
+		}
+
 		this.carService = carService;
 		this.updateInterval = updateInterval;
 	}
@@ -40,7 +55,7 @@ public class StorageUpdater extends Thread {
 	@Override
 	public void run() {
 		while (true) {
-
+			logger.info("Starting updatesequence...");
 			CarLoader carLoader = new CarLoader();
 
 			Set<ICar> carsFromApi = carLoader.getCarsFromApi();
@@ -49,16 +64,14 @@ public class StorageUpdater extends Thread {
 
 			if (updateInterval > 0) {
 				try {
+					logger.info("Falling into sleep...");
 					Thread.sleep(1000 * 60 * updateInterval);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-			else {
+			} else {
 				interrupt();
 			}
-
 		}
 	}
 }

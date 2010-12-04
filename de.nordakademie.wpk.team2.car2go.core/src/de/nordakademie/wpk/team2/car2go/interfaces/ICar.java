@@ -3,6 +3,11 @@ package de.nordakademie.wpk.team2.car2go.interfaces;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.EState;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
 
+/**
+ * 
+ * @author Rumrich, Moehring
+ *
+ */
 public interface ICar {
 	/**
 	 * Returns the description as offered by the REST service or the value that has been set using setDescription()

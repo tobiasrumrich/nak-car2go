@@ -5,6 +5,11 @@ import java.util.Set;
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
 
+/**
+ * 
+ * @author Rumrich, Moehring
+ *
+ */
 public interface ICarStorage {
 	/**
 	 * Adds an ICar object to the storage.

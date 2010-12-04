@@ -4,6 +4,11 @@ import java.util.Set;
 
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
 
+/**
+ * 
+ * @author Rumrich, Moehring
+ *
+ */
 public interface ICarService {
 	/**
 	 * 
@@ -11,6 +16,8 @@ public interface ICarService {
 	 */
 	public Set<ICar> getVacantCars(String username);
 
+	public Set<ICar> getVacantCars();
+	
 	public Set<ICar> getBookmarkedCars(String username);
 
 	public ICar getCarData(String registrationNumber) throws RegistrationNumberNotFoundException;

@@ -8,7 +8,7 @@ import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
  *
  */
 public class Car implements ICar {
-	private String description;
+	private String comment;
 	private String registrationNumber;
 	private int fuelState;
 	private EState interiorState;
@@ -25,12 +25,12 @@ public class Car implements ICar {
 		this.coordinates = coordinates;
 	}
 	
-	public String getDescription() {
-		return description;
+	public String getComment() {
+		return comment;
 	}
 	
-	public void setDescription(String description) {
-		this.description = description;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	public String getRegistrationNumber() {
@@ -83,7 +83,7 @@ public class Car implements ICar {
 	
 	@Override
 	public String toString() {
-		return "Car [description=" + description + ", registrationNumber="
+		return "Car [description=" + comment + ", registrationNumber="
 				+ registrationNumber + ", fuelState=" + fuelState
 				+ ", interiorState=" + interiorState + ", exteriorState="
 				+ exteriorState + ", vacantState=" + vacantState
@@ -120,7 +120,7 @@ public class Car implements ICar {
 		if (registrationNumber == null) {
 			if (other.registrationNumber != null)
 				return false;
-		} else if (!registrationNumber.equals(other.registrationNumber))
+		} else if (!registrationNumber.equalsIgnoreCase(other.registrationNumber))
 			return false;
 		return true;
 	}

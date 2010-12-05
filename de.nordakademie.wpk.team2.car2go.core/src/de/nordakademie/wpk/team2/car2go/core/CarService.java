@@ -6,7 +6,13 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import de.nordakademie.wpk.team2.car2go.core.connectors.GoogleMapsLoader;
+import de.nordakademie.wpk.team2.car2go.core.exception.DuplicateBookmarkException;
+import de.nordakademie.wpk.team2.car2go.core.exception.IllegalCommentException;
+import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
+import de.nordakademie.wpk.team2.car2go.core.exception.IllegalUsernameException;
+import de.nordakademie.wpk.team2.car2go.core.exception.MapRetrievalException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
+import de.nordakademie.wpk.team2.car2go.core.exception.UsernameNotFoundException;
 import de.nordakademie.wpk.team2.car2go.interfaces.IBookmarkStorage;
 import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
 import de.nordakademie.wpk.team2.car2go.interfaces.ICarService;
@@ -27,14 +33,14 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 
 	@Override
 	public ICar getCarData(String registrationNumber)
-			throws RegistrationNumberNotFoundException {
+			throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException {
 		logger.info("Reading infos for car with registrationnumber: " + registrationNumber);
 		return carStorage.findCar(registrationNumber);
 	}
 
 	@Override
 	public void addToBookmark(String registrationNumber, String username)
-			throws RegistrationNumberNotFoundException {
+			throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException, DuplicateBookmarkException, IllegalUsernameException {
 		logger.info("Add car with registrationnumber " + registrationNumber + " to bookmarks of user " + username);
 		
 		bookmarkStorage.addBookmark(username, carStorage.findCar(registrationNumber));
@@ -42,14 +48,14 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 
 	@Override
 	public void removeFromBookmark(String registrationNumber, String username)
-			throws RegistrationNumberNotFoundException {
+			throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException, UsernameNotFoundException, IllegalUsernameException {
 		logger.info("Remove car with registrationnumber " + registrationNumber + " from bookmarks of user " + username);
 
 		bookmarkStorage.removeBookmark(username, registrationNumber);
 	}
 
 	@Override
-	public Set<ICar> getVacantCars(String username) {
+	public Set<ICar> getVacantCars(String username) throws IllegalUsernameException {
 		logger.info("Get vacant cars for user " + username);
 		
 		Set<ICar> carSet = carStorage.getCarSet();
@@ -66,7 +72,7 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 	}
 
 	@Override
-	public Set<ICar> getBookmarkedCars(String username) {
+	public Set<ICar> getBookmarkedCars(String username) throws IllegalUsernameException {
 		logger.info("Get bookmarked cars for user " + username);
 		
 		return bookmarkStorage.getBookmarks(username);
@@ -74,14 +80,19 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 
 	@Override
 	public void setComment(String registrationNumber, String comment)
-			throws RegistrationNumberNotFoundException {
+			throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException, IllegalCommentException {
 		logger.info("Set comment for car with registrationnumber " + registrationNumber);
-		carStorage.findCar(registrationNumber).setDescription(comment);
+		
+		if (comment == null) {
+			throw new IllegalCommentException();
+		}
+		
+		carStorage.findCar(registrationNumber).setComment(comment);
 	}
 
 	@Override
 	public byte[] getMapForCar(String registrationNumber, int width,
-			int height, int zoom) throws RegistrationNumberNotFoundException {
+			int height, int zoom) throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException, MapRetrievalException {
 		logger.info("Get map from google for car with registrationnumber " + registrationNumber);
 		return googleMapsLoader.getMapForCar(
 				carStorage.findCar(registrationNumber), width, height, zoom);

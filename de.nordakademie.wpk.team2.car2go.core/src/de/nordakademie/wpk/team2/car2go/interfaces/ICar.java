@@ -12,7 +12,7 @@ public interface ICar {
 	/**
 	 * Returns the description as offered by the REST service or the value that has been set using setDescription()
 	 */
-	public String getDescription();
+	public String getComment();
 	/**
 	 * Returns the description of the car as a string
 	 * @return String the registration number of the car
@@ -59,7 +59,7 @@ public interface ICar {
 	 * Sets the description of the car. If used this overrides the description provided by the REST service
 	 * @param description
 	 */
-	public void setDescription(String description);
+	public void setComment(String comment);
 	
 	/**
 	 * Returns the exact GPS position of the car as GeoPoint

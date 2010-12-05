@@ -50,7 +50,8 @@ public interface ICarStorage {
 	 * @param registrationNumber
 	 * @return
 	 * @throws RegistrationNumberNotFoundException 
+	 * @throws IllegalRegistrationNumberException 
 	 */
-	public ICar findCar(String registrationNumber) throws RegistrationNumberNotFoundException;
+	public ICar findCar(String registrationNumber) throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException;
 
 }

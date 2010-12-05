@@ -16,6 +16,12 @@ import org.eclipse.ui.part.EditorPart;
 
 import com.swtdesigner.ResourceManager;
 
+/**
+ * The CarEditor displays all information for the selected car and offers the
+ * possibility to save comments for Cars.
+ * 
+ * @author: Alexander Westen, Matthias Lüders
+ */
 public class CarEditor extends EditorPart {
 	public CarEditor() {
 	}
@@ -47,9 +53,10 @@ public class CarEditor extends EditorPart {
 				true, false, 1, 1);
 		gd_txtRegistrationNumber.minimumWidth = 200;
 		txtRegistrationNumber.setLayoutData(gd_txtRegistrationNumber);
-		
+
 		lblGoogleMapsPosition = new Label(parent, SWT.NONE);
-		lblGoogleMapsPosition.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 6));
+		lblGoogleMapsPosition.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER,
+				true, false, 1, 6));
 		lblGoogleMapsPosition.setText("GoogleMaps Bild");
 
 		Label lblFuelState = new Label(parent, SWT.NONE);
@@ -135,6 +142,9 @@ public class CarEditor extends EditorPart {
 		setupDirtyHandling();
 	}
 
+	/**
+	 * DirtyHandling for the Widget
+	 */
 	private void setupDirtyHandling() {
 		ModifyListener modifList = new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
@@ -144,11 +154,17 @@ public class CarEditor extends EditorPart {
 		txtDescription.addModifyListener(modifList);
 	}
 
+	/**
+	 * Marks the Widget as dirty
+	 */
 	private void markDirty() {
 		dirty = true;
 		firePropertyChange(PROP_DIRTY);
 	}
 
+	/**
+	 * Setup the Widget with the ICar data
+	 */
 	private void setupWidgetsWithData() {
 		CarEditorInput editorInput = (CarEditorInput) getEditorInput();
 		txtRegistrationNumber.setText(editorInput.getCar()
@@ -165,9 +181,9 @@ public class CarEditor extends EditorPart {
 						.getLongitude()));
 		txtLocation.setText(editorInput.getCar().getLocation());
 		txtDescription.setText(editorInput.getCar().getDescription());
-		
-		//TODO Google maps picture
-		//lblGoogleMapsPosition.setImage(editorInput.getCar().get);
+
+		// TODO Google maps picture
+		// lblGoogleMapsPosition.setImage(editorInput.getCar().get);
 	}
 
 	@Override

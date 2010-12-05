@@ -4,6 +4,11 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 
+/**
+ * RemoveBookmarkHandler
+ * 
+ * @author: Alexander Westen, Matthias Lüders
+ */
 public class RemoveBookmarkHandler extends AbstractHandler {
 
 	@Override

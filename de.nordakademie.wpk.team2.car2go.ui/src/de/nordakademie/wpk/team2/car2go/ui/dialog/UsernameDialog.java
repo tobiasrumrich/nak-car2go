@@ -21,6 +21,12 @@ import com.swtdesigner.ResourceManager;
 
 import de.nordakademie.wpk.team2.car2go.ui.views.UserBean;
 
+/**
+ * The UsernameDialog offers the user to sign in with a username or start the
+ * application without a "session".
+ * 
+ * @author: Alexander Westen, Matthias Lüders
+ */
 public class UsernameDialog extends TitleAreaDialog {
 	private Text txtUsername;
 	private UserBean user;
@@ -64,7 +70,7 @@ public class UsernameDialog extends TitleAreaDialog {
 		GridData gd_text = new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1);
 		gd_text.minimumWidth = 200;
 		txtUsername.setLayoutData(gd_text);
-				
+
 		parent.addDisposeListener(new DisposeListener() {
 			public void widgetDisposed(DisposeEvent e) {
 				user.setUsername(txtUsername.getText());
@@ -81,10 +87,10 @@ public class UsernameDialog extends TitleAreaDialog {
 	 */
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		Button okButton = createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
-				true);
+		Button okButton = createButton(parent, IDialogConstants.OK_ID,
+				IDialogConstants.OK_LABEL, true);
 		okButton.setText("Anmelden");
-		
+
 		Button cancelButton = createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
 		cancelButton.setText("Ohne Anmeldung");

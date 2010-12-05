@@ -22,6 +22,11 @@ import com.swtdesigner.ResourceManager;
 import de.nordakademie.wpk.team2.car2go.ui.dialog.UsernameDialog;
 import de.nordakademie.wpk.team2.car2go.ui.providers.CarLabelProvider;
 
+/**
+ * Car2goView hält alle Verfügbaren und Gebookmarkten Cars
+ * 
+ * @author: Alexander Westen, Matthias Lüders
+ */
 public class Car2goView extends ViewPart {
 
 	public static final String ID = "de.nordakademie.wpk.team2.car2go.ui.views.Car2goView"; //$NON-NLS-1$
@@ -60,7 +65,6 @@ public class Car2goView extends ViewPart {
 		comboView.select(0);
 
 		comboView.addSelectionListener(new SelectionAdapter() {
-			@Override
 			/**
 			 * redraws the carTree with the selected View
 			 */
@@ -84,7 +88,7 @@ public class Car2goView extends ViewPart {
 		carTree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 4, 1));
 
 		TreeColumn treeColumnVacant = new TreeColumn(carTree, SWT.LEFT);
-		treeColumnVacant.setWidth(100);
+		treeColumnVacant.setWidth(150);
 		treeColumnVacant.setText("Vakant");
 
 		TreeColumn treeColumnRegistrationNumber = new TreeColumn(carTree,
@@ -135,16 +139,6 @@ public class Car2goView extends ViewPart {
 		treeViewer.setLabelProvider(new CarLabelProvider());
 		treeViewer.setInput(getCars());
 		treeViewer.expandAll();
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
-
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
-		new Label(container, SWT.NONE);
 
 		// initialize context menu
 		initializeContextMenu();
@@ -175,13 +169,15 @@ public class Car2goView extends ViewPart {
 	 */
 	private TreeNode[] getCars() {
 		// ArrayList<TreeNode> tree = new ArrayList<TreeNode>();
-
 		TreeNode[] tree = new TreeNode[2];
 
-		TreeNode nodeBookmarked = new TreeNode(BOOKMARKED);
+		RootNodeBean bookmarked = new RootNodeBean(BOOKMARKED, user);
+		RootNodeBean vacant = new RootNodeBean(VACANT, user);
+
+		TreeNode nodeBookmarked = new TreeNode(bookmarked);
 		nodeBookmarked.setParent(null);
 		tree[0] = nodeBookmarked;
-		TreeNode nodeVakant = new TreeNode(VACANT);
+		TreeNode nodeVakant = new TreeNode(vacant);
 		nodeVakant.setParent(null);
 		tree[1] = nodeVakant;
 
@@ -232,19 +228,20 @@ public class Car2goView extends ViewPart {
 	private void getUsername() {
 		UsernameDialog dialog = new UsernameDialog(this.getSite().getShell());
 		dialog.setUserBean(user);
-		dialog.open();
-		if (user.getUsername() == "" || user.getUsername() == null) {
+		int returnCode = dialog.open();
+		if (user.getUsername() == "" || user.getUsername() == null
+				|| returnCode == 1) {
+			user.setSignIn(false);
 			lblUsername.setText("Nicht angemeldet");
 			lblSignIn.setImage(ResourceManager.getPluginImage(
 					"de.nordakademie.wpk.team2.car2go.ui",
 					"resources/icons/red.gif"));
 		} else {
+			user.setSignIn(true);
 			lblUsername.setText("Angemeldet als: " + user.getUsername());
 			lblSignIn.setImage(ResourceManager.getPluginImage(
 					"de.nordakademie.wpk.team2.car2go.ui",
 					"resources/icons/green.gif"));
 		}
-
 	}
-
 }

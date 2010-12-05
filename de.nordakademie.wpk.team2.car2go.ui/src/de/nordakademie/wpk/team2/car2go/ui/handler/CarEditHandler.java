@@ -14,18 +14,26 @@ import de.nordakademie.wpk.team2.car2go.ui.editor.CarEditor;
 import de.nordakademie.wpk.team2.car2go.ui.editor.CarEditorInput;
 import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
 
+/**
+ * CarEditHandler
+ * 
+ * @author: Alexander Westen, Matthias Lüders
+ */
 public class CarEditHandler extends AbstractHandler {
 
-	/*
-	 * This  method calls the CarEditor for the selected car.
+	/**
+	 * This method calls the CarEditor for the selected car.
 	 * 
-	 * @Author: Alexander Westen & Matthias Lüders
+	 * @Author: Alexander Westen, Matthias Lüders
 	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IStructuredSelection currentSelection = (IStructuredSelection) HandlerUtil
 				.getCurrentSelection(event);
 		if (!currentSelection.isEmpty()) {
+			if (currentSelection.getFirstElement() instanceof ICar) {
+				return null;
+			}
 			ICar car = (ICar) currentSelection.getFirstElement();
 			System.out.println("Selected Car:" + car.getRegistrationNumber());
 			CarEditorInput carEditorInput = new CarEditorInput(car);
@@ -37,16 +45,14 @@ public class CarEditHandler extends AbstractHandler {
 					@Override
 					public void propertyChanged(Object source, int propId) {
 						if (propId == CarEditor.PROP_SAVED) {
-							Car2goView view = (Car2goView) openEditor
-									.getSite().getPage()
-									.findView(Car2goView.ID);
+							Car2goView view = (Car2goView) openEditor.getSite()
+									.getPage().findView(Car2goView.ID);
 							if (view != null) {
 								view.refresh();
 							}
 						}
 					}
 				});
-
 			} catch (PartInitException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

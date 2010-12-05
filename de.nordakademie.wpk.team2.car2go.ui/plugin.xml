@@ -14,13 +14,17 @@
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
-            locationURI="popup:de.nordakademie.wpk.team2.car2go.ui.Car2goView">
+            locationURI="popup:de.nordakademie.wpk.team2.car2go.ui.views.Car2goView">
          <command
                commandId="de.nordakademie.wpk.team2.car2go.ui.removeBookmark"
                style="push">
          </command>
          <command
                commandId="de.nordakademie.wpk.team2.car2go.ui.addBookmark"
+               style="push">
+         </command>
+         <command
+               commandId="de.nordakademie.wpk.team2.car2go.ui.addCar"
                style="push">
          </command>
       </menuContribution>

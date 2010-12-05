@@ -27,12 +27,11 @@ public class CarStorage implements ICarStorage {
 	public void addCar(ICar car) throws IllegalRegistrationNumberException {
 		logger.info("Add car " + car);
 		
-		if (!registrationNumberValidator.validateRegistrationNumber(car
-				.getRegistrationNumber()) || !carStorage.add(car)) {
+		if (car == null || !registrationNumberValidator.validateRegistrationNumber(
+				car.getRegistrationNumber()) || !carStorage.add(car)) {
 			logger.info("Illegal registrationnumber!");
 			throw new IllegalRegistrationNumberException();
 		}
-
 	}
 
 	@Override
@@ -66,13 +65,19 @@ public class CarStorage implements ICarStorage {
 
 	@Override
 	public ICar findCar(String registrationNumber)
-			throws RegistrationNumberNotFoundException {
+			throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException {
 		logger.info("Search for car with registrationnumber " + registrationNumber);
 		
+		if (!registrationNumberValidator.validateRegistrationNumber(registrationNumber)) {
+			logger.info("Illegal registrationnumber!");
+			throw new IllegalRegistrationNumberException();
+		}
+		
 		for (ICar myCar : carStorage) {
-			if (myCar.getRegistrationNumber().equals(registrationNumber))
+			if (myCar.getRegistrationNumber().equalsIgnoreCase(registrationNumber)) {
 				logger.info("Car found: " + myCar);
 				return myCar;
+			}
 		}
 		
 		logger.info("Car not found!");

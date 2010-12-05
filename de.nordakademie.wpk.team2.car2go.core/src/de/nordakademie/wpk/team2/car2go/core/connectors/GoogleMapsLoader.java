@@ -8,6 +8,7 @@ import java.net.URL;
 
 import org.apache.log4j.Logger;
 
+import de.nordakademie.wpk.team2.car2go.core.exception.MapRetrievalException;
 import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
 
 /**
@@ -20,8 +21,12 @@ public class GoogleMapsLoader {
 	
 	// Verwenden der Maps: new Image(Display.getCurrent(), new
 	// ByteArrayInputStream(new GoogleMapsLoader().getMapForCar(null)));
-	public byte[] getMapForCar(ICar car, int width, int height, int zoom) {
+	public byte[] getMapForCar(ICar car, int width, int height, int zoom) throws MapRetrievalException {
 		logger.info("Loading map from google for car " + car);
+		
+		if (car == null || width <= 10 || height <= 10 || zoom <= 0) {
+			throw new MapRetrievalException();
+		}
 		
 		try {
 			InputStream openStream = this.getUrlFromCar(car, width, height, zoom).openStream();
@@ -42,7 +47,7 @@ public class GoogleMapsLoader {
 			e.printStackTrace();
 		}
 
-		return null;
+		throw new MapRetrievalException();
 	}
 
 	private URL getUrlFromCar(ICar car, int width, int height, int zoom)

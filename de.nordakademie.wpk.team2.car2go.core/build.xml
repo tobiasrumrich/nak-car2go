@@ -31,6 +31,7 @@
 		<jar destfile="dist/de.nordakademie.wpk.team2.car2go.interface.jar">
 			<fileset dir="dist/bin">
 				<include name="de/nordakademie/wpk/team2/car2go/interfaces/*" />
+				<include name="de/nordakademie/wpk/team2/car2go/core/exception/*" />
 			</fileset>
 		</jar>
 	</target>

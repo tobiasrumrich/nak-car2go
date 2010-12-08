@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import de.nordakademie.wpk.team2.car2go.core.GenericRegistrationNumberValidator;
 
+
 public class TestGenericRegistrationNumberValidator {
 	private GenericRegistrationNumberValidator grnv;
 	

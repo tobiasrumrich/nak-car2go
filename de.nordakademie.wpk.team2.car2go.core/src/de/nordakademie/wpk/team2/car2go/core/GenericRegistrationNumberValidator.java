@@ -2,7 +2,7 @@ package de.nordakademie.wpk.team2.car2go.core;
 
 import org.apache.log4j.Logger;
 
-import de.nordakademie.wpk.team2.car2go.interfaces.ICarRegistrationNumberValidator;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarRegistrationNumberValidator;
 
 /**
  * 

@@ -1,6 +1,6 @@
 package de.nordakademie.wpk.team2.car2go.core.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +15,8 @@ import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumber
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalUsernameException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
 import de.nordakademie.wpk.team2.car2go.core.exception.UsernameNotFoundException;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
+
 
 public class TestBookmarkStorage {
 	private BookmarkStorage bs;
@@ -163,5 +164,4 @@ public class TestBookmarkStorage {
 		assertEquals(false, testCar2.getVacantState());
 		assertEquals(true, testCar3.getVacantState());
 	}
-
 }

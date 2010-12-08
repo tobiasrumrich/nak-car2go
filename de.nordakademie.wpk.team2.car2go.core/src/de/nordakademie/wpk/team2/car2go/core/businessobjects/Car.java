@@ -1,6 +1,6 @@
 package de.nordakademie.wpk.team2.car2go.core.businessobjects;
 
-import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 
 /**
  * 

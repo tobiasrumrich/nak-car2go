@@ -1,6 +1,5 @@
 package de.nordakademie.wpk.team2.car2go.core.test;
 
-
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
@@ -16,7 +15,9 @@ import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumber
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalUsernameException;
 import de.nordakademie.wpk.team2.car2go.core.exception.MapRetrievalException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
+
+
 
 public class TestCarService {
 	private CarService cs;

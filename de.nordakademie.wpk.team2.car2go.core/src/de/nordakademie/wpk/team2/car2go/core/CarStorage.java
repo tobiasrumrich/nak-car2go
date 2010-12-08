@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICarRegistrationNumberValidator;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICarStorage;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarRegistrationNumberValidator;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarStorage;
 
 /**
  * This class stores all vacant cars

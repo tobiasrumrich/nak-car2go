@@ -1,6 +1,6 @@
 package de.nordakademie.wpk.team2.car2go.core.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +9,8 @@ import de.nordakademie.wpk.team2.car2go.core.CarStorage;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.Car;
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICarStorage;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarStorage;
+
 
 public class TestCarStorage {
 	private ICarStorage cs;

@@ -9,7 +9,7 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 
 import de.nordakademie.wpk.team2.car2go.core.exception.MapRetrievalException;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 
 /**
  * 

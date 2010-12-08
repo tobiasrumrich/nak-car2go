@@ -12,9 +12,9 @@ import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumber
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalUsernameException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
 import de.nordakademie.wpk.team2.car2go.core.exception.UsernameNotFoundException;
-import de.nordakademie.wpk.team2.car2go.interfaces.IBookmarkStorage;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICarRegistrationNumberValidator;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.IBookmarkStorage;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarRegistrationNumberValidator;
 
 public class BookmarkStorage implements IBookmarkStorage {
 	private static final Logger logger = Logger.getLogger(BookmarkStorage.class);

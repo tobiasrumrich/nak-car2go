@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.Car;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.EState;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
-import de.nordakademie.wpk.team2.car2go.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 
 /**
  * 

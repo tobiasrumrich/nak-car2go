@@ -24,7 +24,7 @@ public class StorageUpdater extends Thread {
 	 *            is the CarService that will be pushed with the updates. If it
 	 *            is set to 0, there will be no periodic updates.
 	 * @param updateInterval
-	 *            is the interval in seconds between the updates and must be a
+	 *            is the interval in minutes between the updates and must be a
 	 *            postive int
 	 */
 	public StorageUpdater(IUpdateableCarStorageOwner carService,

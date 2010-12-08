@@ -28,9 +28,15 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 	private static final Logger logger = Logger.getLogger(CarService.class);
 	private ICarStorage carStorage = new CarStorage();
 	private IBookmarkStorage bookmarkStorage = new BookmarkStorage();
+	private StorageUpdater updater;
 	
 	private GoogleMapsLoader googleMapsLoader = new GoogleMapsLoader();
 
+	public CarService() {
+		updater = new StorageUpdater(this, 1);
+		updater.start();
+	}
+	
 	@Override
 	public ICar getCarData(String registrationNumber)
 			throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException {
@@ -101,6 +107,7 @@ public class CarService implements ICarService, IUpdateableCarStorageOwner {
 	@Override
 	public void pushCarStorageUdate(Set<ICar> newCarSet) {
 		logger.info("New list of vacant cars available, updating carStorage...");
+		logger.info("New car count: " + newCarSet.size());
 		Set<ICar> carSet = carStorage.getCarSet();
 		carSet.retainAll(newCarSet);
 		carSet.addAll(newCarSet);

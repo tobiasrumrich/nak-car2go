@@ -5,7 +5,7 @@
 	</target>
 	
 	<target name="compile" depends="init">
-		<javac srcdir="src" destdir="dist/bin">
+		<javac srcdir="src" destdir="dist/bin" excludes="**/test/*" >
 			<classpath>
 				<fileset dir="lib">
 					<include name = "*.jar"/>

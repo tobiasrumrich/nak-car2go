@@ -1,6 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean name="/carservice" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="serviceInterface" value="de.nordakademie.wpk.team2.car2go.core.ICarService"/>
+		<property name="serviceInterface" value="de.nordakademie.wpk.team2.car2go.core.interfaces.ICarService"/>
 		<property name="service" ref="carService"/>
 	</bean>
 </beans>

@@ -11,8 +11,7 @@
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <windowImages/>
-
+   <windowImages i16="/de.nordakademie.wpk.team2.car2go.ui/resources/icons/car2goIcon16x16.png" i32="/de.nordakademie.wpk.team2.car2go.ui/resources/icons/car2goIcon32x32.png"/>
 
    <launcher>
       <solaris/>
@@ -24,7 +23,6 @@
 
    <vm>
    </vm>
-
 
    <plugins>
    </plugins>

@@ -38,18 +38,6 @@
       </menuContribution>
    </extension>
    <extension
-         id="todolist"
-         point="org.eclipse.core.runtime.products">
-      <product
-            application="de.nordakademie.wpk.todolist.product.application"
-            name="Todoliste">
-         <property
-               name="appName"
-               value="Todoliste">
-         </property>
-      </product>
-   </extension>
-   <extension
          id="Car2Go"
          point="org.eclipse.core.runtime.products">
       <product

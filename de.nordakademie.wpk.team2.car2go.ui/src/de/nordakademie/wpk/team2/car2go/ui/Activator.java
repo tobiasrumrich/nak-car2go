@@ -4,7 +4,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-import de.nordakademie.wpk.team2.car2go.core.ICarService;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarService;
+import de.nordakademie.wpk.team2.car2go.ui.exceptions.ServiceNotAvailableException;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -59,14 +60,22 @@ public class Activator extends AbstractUIPlugin {
 	/**
 	 * Receive the CarService interface from the Server
 	 * 
+	 * @throws ServiceNotAvailableException
+	 * 
 	 * @retun reference to the CarServer
 	 */
-	public ICarService getCarService() {
+	public ICarService getCarService() throws ServiceNotAvailableException {
 		ServiceReference serviceReference = this.getBundle().getBundleContext()
 				.getServiceReference(ICarService.class.getName());
 
-		return (ICarService) this.getBundle().getBundleContext()
-				.getService(serviceReference);
+		try {
+			ICarService ics = (ICarService) this.getBundle().getBundleContext()
+					.getService(serviceReference);
+			return ics;
+
+		} catch (NullPointerException e) {
+			throw new ServiceNotAvailableException();
+		}
 
 	}
 }

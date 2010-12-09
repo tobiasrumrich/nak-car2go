@@ -6,14 +6,18 @@ package de.nordakademie.wpk.team2.car2go.ui.views;
  * 
  * @author: Alexander Westen, Matthias Lüders
  */
-public class RootNodeBean {
+public class NodeBean {
 
 	private String nodeText;
-	private UserBean user;
-
-	public RootNodeBean(String nodeText, UserBean user) {
+	private String imagePath;
+	
+	public NodeBean(String nodeText) {
 		this.nodeText = nodeText;
-		this.user = user;
+	}
+
+	public NodeBean(String nodeText, String imagePath) {
+		this.nodeText = nodeText;
+		this.imagePath = imagePath;
 	}
 
 	public void setNodeText(String nodeText) {
@@ -24,11 +28,11 @@ public class RootNodeBean {
 		return nodeText;
 	}
 
-	public void setUser(UserBean user) {
-		this.user = user;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
-	public UserBean getUser() {
-		return user;
+	public String getImagePath() {
+		return imagePath;
 	}
 }

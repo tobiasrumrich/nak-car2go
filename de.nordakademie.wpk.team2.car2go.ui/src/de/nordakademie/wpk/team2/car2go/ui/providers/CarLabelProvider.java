@@ -7,9 +7,8 @@ import org.eclipse.swt.graphics.Image;
 
 import com.swtdesigner.ResourceManager;
 
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
-import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
-import de.nordakademie.wpk.team2.car2go.ui.views.RootNodeBean;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
+import de.nordakademie.wpk.team2.car2go.ui.views.NodeBean;
 
 /**
  * CarLabelProvider
@@ -23,23 +22,15 @@ public class CarLabelProvider extends LabelProvider implements
 	public Image getColumnImage(Object element, int columnIndex) {
 		TreeNode node = (TreeNode) element;
 
-		if (node.getValue() instanceof RootNodeBean && columnIndex == 0) {
+		if (node.getValue() instanceof NodeBean && columnIndex == 0) {
 			// Images for RootNodeBeans
-			RootNodeBean rootNode = (RootNodeBean) node.getValue();
-			if (rootNode.getNodeText().equals(Car2goView.BOOKMARKED)) {
-				if (rootNode.getUser().isSignIn()) {
-					return ResourceManager.getPluginImage(
-							"de.nordakademie.wpk.team2.car2go.ui",
-							"resources/icons/bookmarked_icon.png");
-				} else {
-					return ResourceManager.getPluginImage(
-							"de.nordakademie.wpk.team2.car2go.ui",
-							"resources/icons/bookmarked_gray_icon.png");
-				}
-			} else if (rootNode.getNodeText().equals(Car2goView.VACANT)) {
+			NodeBean rootNode = (NodeBean) node.getValue();
+			if (rootNode.getImagePath() != null
+					&& rootNode.getImagePath() != "") {
 				return ResourceManager.getPluginImage(
 						"de.nordakademie.wpk.team2.car2go.ui",
-						"resources/icons/vacant_icon.png");
+						rootNode.getImagePath());
+
 			}
 		} else if (node instanceof ICar && columnIndex == 0) {
 			// Images for ICar's
@@ -47,11 +38,11 @@ public class CarLabelProvider extends LabelProvider implements
 			if (car.getVacantState() == true) {
 				return ResourceManager.getPluginImage(
 						"de.nordakademie.wpk.team2.car2go.ui",
-						"resources/icons/vacant_icon.png");
+						"resources/icons/greenBall.png");
 			} else {
 				return ResourceManager.getPluginImage(
 						"de.nordakademie.wpk.team2.car2go.ui",
-						"resources/icons/bookmarked_icon.png");
+						"resources/icons/redBall.png");
 			}
 		}
 		return null;
@@ -63,14 +54,9 @@ public class CarLabelProvider extends LabelProvider implements
 
 		try {
 
-			if (node.getValue() instanceof RootNodeBean && columnIndex == 0) {
+			if (node.getValue() instanceof NodeBean && columnIndex == 0) {
 				// Text for RootNodeBean's
-				RootNodeBean rootNode = (RootNodeBean) node.getValue();
-				if (rootNode.getNodeText().equals(Car2goView.BOOKMARKED)
-						&& rootNode.getUser().isSignIn()) {
-					return rootNode.getNodeText() + " ("
-							+ rootNode.getUser().getUsername() + ")";
-				}
+				NodeBean rootNode = (NodeBean) node.getValue();
 				return rootNode.getNodeText();
 			} else if (node.getValue() instanceof ICar) {
 				// Text for ICar's

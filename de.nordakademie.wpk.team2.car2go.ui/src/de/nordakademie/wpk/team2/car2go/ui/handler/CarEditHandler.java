@@ -9,7 +9,7 @@ import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.ICar;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 import de.nordakademie.wpk.team2.car2go.ui.editor.CarEditor;
 import de.nordakademie.wpk.team2.car2go.ui.editor.CarEditorInput;
 import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
@@ -31,7 +31,7 @@ public class CarEditHandler extends AbstractHandler {
 		IStructuredSelection currentSelection = (IStructuredSelection) HandlerUtil
 				.getCurrentSelection(event);
 		if (!currentSelection.isEmpty()) {
-			if (currentSelection.getFirstElement() instanceof ICar) {
+			if (!(currentSelection.getFirstElement() instanceof ICar)) {
 				return null;
 			}
 			ICar car = (ICar) currentSelection.getFirstElement();

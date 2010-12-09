@@ -8,6 +8,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -15,6 +16,13 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
 
 import com.swtdesigner.ResourceManager;
+
+import de.nordakademie.wpk.team2.car2go.core.exception.IllegalCommentException;
+import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
+import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarService;
+import de.nordakademie.wpk.team2.car2go.ui.Activator;
+import de.nordakademie.wpk.team2.car2go.ui.exceptions.ServiceNotAvailableException;
 
 /**
  * The CarEditor displays all information for the selected car and offers the
@@ -120,9 +128,9 @@ public class CarEditor extends EditorPart {
 		lblVacant.setText("Vakant");
 
 		Label label = new Label(parent, SWT.NONE);
-		label.setImage(ResourceManager
-				.getPluginImage("de.nordakademie.wpk.team2.car2go.ui",
-						"resources/icons/no.png"));
+		label.setImage(ResourceManager.getPluginImage(
+				"de.nordakademie.wpk.team2.car2go.ui",
+				"resources/icons/redBall.png"));
 		new Label(parent, SWT.NONE);
 
 		Label lblDescription = new Label(parent, SWT.NONE);
@@ -180,7 +188,7 @@ public class CarEditor extends EditorPart {
 				+ String.valueOf(editorInput.getCar().getCoordinates()
 						.getLongitude()));
 		txtLocation.setText(editorInput.getCar().getLocation());
-		txtDescription.setText(editorInput.getCar().getDescription());
+		txtDescription.setText(editorInput.getCar().getComment());
 
 		// TODO Google maps picture
 		// lblGoogleMapsPosition.setImage(editorInput.getCar().get);
@@ -206,8 +214,42 @@ public class CarEditor extends EditorPart {
 		CarEditorInput editorInput = (CarEditorInput) getEditorInput();
 
 		// Save to the domain
-		editorInput.getCar().setDescription(txtDescription.getText());
-		// TODO Save to the Server
+		editorInput.getCar().setComment(txtDescription.getText());
+		ICarService ics;
+
+		// Get the service
+		try {
+			ics = Activator.getDefault().getCarService();
+		} catch (ServiceNotAvailableException e) {
+			errorMessage(e.getLocalizedMessage());
+			return;
+		}
+
+		// Save the comment
+		try {
+			ics.setComment(editorInput.getCar().getRegistrationNumber(),
+					txtDescription.getText());
+		} catch (RegistrationNumberNotFoundException e) {
+			errorMessage(e.getLocalizedMessage());
+		} catch (IllegalRegistrationNumberException e) {
+			errorMessage(e.getLocalizedMessage());
+		} catch (IllegalCommentException e) {
+			errorMessage(e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * Display an error message
+	 * 
+	 * @param message
+	 *            the message
+	 */
+	private void errorMessage(String message) {
+		MessageBox messageBox = new MessageBox(this.getSite().getShell(),
+				SWT.OK | SWT.ICON_ERROR);
+		messageBox.setText("Ups.. das sollte nicht passieren!");
+		messageBox.setMessage(message);
+		messageBox.open();
 	}
 
 	@Override

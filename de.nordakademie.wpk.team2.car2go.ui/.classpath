@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="lib" path="de.nordakademie.wpk.team2.car2go.interface.jar"/>
+	<classpathentry kind="lib" path="resources/icons/refresh.png"/>
+	<classpathentry kind="lib" path="resources/icons/menu/addToBookmark.png"/>
+	<classpathentry kind="lib" path="resources/icons/menu/showDetails.png"/>
+	<classpathentry kind="lib" path="resources/icons/tree/100percent.png"/>
+	<classpathentry kind="lib" path="resources/icons/tree/25percent.png"/>
+	<classpathentry kind="lib" path="resources/icons/tree/50percent.png"/>
+	<classpathentry kind="lib" path="resources/icons/tree/75percent.png"/>
+	<classpathentry kind="lib" path="resources/icons/tree/bookmarked.png"/>
+	<classpathentry kind="lib" path="resources/icons/tree/bookmarkedGray.png"/>
+	<classpathentry kind="lib" path="resources/icons/tree/vacant.png"/>
+	<classpathentry kind="lib" path="resources/icons/greenBall.png"/>
+	<classpathentry kind="lib" path="resources/icons/redBall.png"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="swing2swt.jar"/>
-	<classpathentry kind="lib" path="car2go.core.jar"/>
 	<classpathentry kind="lib" path="resources/icons/car2go-100x100.png"/>
-	<classpathentry kind="lib" path="resources/icons/bookmarked_icon.png"/>
-	<classpathentry kind="lib" path="resources/icons/vacant_icon.png"/>
-	<classpathentry kind="lib" path="resources/icons/green.gif"/>
-	<classpathentry kind="lib" path="resources/icons/red.gif"/>
-	<classpathentry kind="lib" path="de.nordakademie.wpk.team2.car2go.interface.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

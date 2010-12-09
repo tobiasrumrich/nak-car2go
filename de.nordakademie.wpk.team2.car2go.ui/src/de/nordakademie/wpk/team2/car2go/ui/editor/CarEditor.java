@@ -19,6 +19,7 @@ import com.swtdesigner.ResourceManager;
 
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalCommentException;
 import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumberException;
+import de.nordakademie.wpk.team2.car2go.core.exception.MapRetrievalException;
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarService;
 import de.nordakademie.wpk.team2.car2go.ui.Activator;
@@ -190,8 +191,13 @@ public class CarEditor extends EditorPart {
 		txtLocation.setText(editorInput.getCar().getLocation());
 		txtDescription.setText(editorInput.getCar().getComment());
 
-		// TODO Google maps picture
-		// lblGoogleMapsPosition.setImage(editorInput.getCar().get);
+		try {
+			//TODO byte in image umwandeln --> Nico fragen :)
+			byte[] image = Activator.getDefault().getCarService().getMapForCar(editorInput.getCar().getRegistrationNumber(), 200, 200, 7);
+			// lblGoogleMapsPosition.setImage(editorInput.getCar().get);
+		} catch (Exception e) {
+			lblGoogleMapsPosition.setText("Position nicht verfügbar");
+		}
 	}
 
 	@Override

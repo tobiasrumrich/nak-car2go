@@ -63,6 +63,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="de.nordakademie.wpk.team2.car2go.ui.editor.CarEditor"
+            icon="resources/icons/car2goIcon16x16.png"
             id="de.nordakademie.wpk.team2.car2go.ui.editor.CarEditor"
             name="Auto">
       </editor>

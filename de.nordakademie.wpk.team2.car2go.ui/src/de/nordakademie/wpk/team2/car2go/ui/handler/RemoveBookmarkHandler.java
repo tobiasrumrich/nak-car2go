@@ -29,6 +29,7 @@ public class RemoveBookmarkHandler extends AbstractHandler {
 				.getCurrentSelection(event);
 		if (!currentSelection.isEmpty()) {
 			if (!(currentSelection.getFirstElement() instanceof ICar)) {
+				System.out.println("RemoveBookmarkHandler: No car selected!");
 				return null;
 			}
 			ICar car = (ICar) currentSelection.getFirstElement();

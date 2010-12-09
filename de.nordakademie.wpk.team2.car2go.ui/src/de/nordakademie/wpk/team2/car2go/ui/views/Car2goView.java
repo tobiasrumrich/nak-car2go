@@ -107,7 +107,7 @@ public class Car2goView extends ViewPart {
 		carTree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 5, 1));
 
 		TreeColumn treeColumnVacant = new TreeColumn(carTree, SWT.LEFT);
-		treeColumnVacant.setWidth(150);
+		treeColumnVacant.setWidth(250);
 		treeColumnVacant.setText("Vakant");
 
 		TreeColumn treeColumnRegistrationNumber = new TreeColumn(carTree,
@@ -208,10 +208,10 @@ public class Car2goView extends ViewPart {
 			ics = Activator.getDefault().getCarService();
 		} catch (ServiceNotAvailableException e1) {
 			TreeNode noVacantNode = new TreeNode(new NodeBean(
-					"Keine Daten geladen..."));
+					"Keine Daten gefunden", "resources/icons/tree/bomb.png"));
 			noVacantNode.setParent(nodeVacant);
 			TreeNode noBookmarkedNode = new TreeNode(new NodeBean(
-					"Keine Daten geladen..."));
+					"Keine Daten gefunden", "resources/icons/tree/bomb.png"));
 
 			vacantChilds.add(noVacantNode);
 			bookmarkedChilds.add(noBookmarkedNode);
@@ -235,14 +235,16 @@ public class Car2goView extends ViewPart {
 				groupCars(bookmarkedCars, nodeBookmarked, comboView.getText());
 			} catch (IllegalUsernameException e) {
 				TreeNode nodeNoBookmarks = new TreeNode(new NodeBean(
-						"Keine Bookmarks vorhanden"));
+						"Keine Bookmarks vorhanden",
+						"resources/icons/tree/bomb.png"));
 				bookmarkedChilds.add(nodeNoBookmarks);
 				nodeBookmarked.setChildren(bookmarkedChilds
 						.toArray(treeNodeType));
 			}
 		} else {
 			TreeNode nodeNoBookmarks = new TreeNode(new NodeBean(
-					"Keine Bookmarks vorhanden"));
+					"Keine Bookmarks vorhanden",
+					"resources/icons/tree/bomb.png"));
 			bookmarkedChilds.add(nodeNoBookmarks);
 			nodeBookmarked.setChildren(bookmarkedChilds.toArray(treeNodeType));
 		}
@@ -276,26 +278,41 @@ public class Car2goView extends ViewPart {
 	 *            TreeNode of the cars
 	 */
 	private void groupCarsByLocation(Set<ICar> cars, TreeNode parent) {
-		//TODO auf setChildren umstellen
-		HashMap<String, TreeNode> locations = new HashMap<String, TreeNode>();
+		HashMap<String, ArrayList<TreeNode>> locations = new HashMap<String, ArrayList<TreeNode>>();
+
+		// Map all cars to a location
 		Iterator<ICar> carIterator = cars.iterator();
-		TreeNode locationNode;
 		while (carIterator.hasNext()) {
 			ICar iCar = (ICar) carIterator.next();
 			TreeNode carNode = new TreeNode(iCar);
 
-			if (locations.containsKey(iCar.getLocation())) {
-				locationNode = locations.get(iCar.getLocation());
-
-			} else {
+			if (!locations.containsKey(iCar.getLocation())) {
 				// Neue location hinzufügen
-				locationNode = new TreeNode(new NodeBean(iCar.getLocation()));
-				locationNode.setParent(parent);
-				locations.put(iCar.getLocation(), locationNode);
+				locations.put(iCar.getLocation(), new ArrayList<TreeNode>());
 			}
 			// iCar zur Location hinzufügen
-			carNode.setParent(locationNode);
+			locations.get(iCar.getLocation()).add(carNode);
 		}
+
+		// dummy tree for ArrayList Cast
+		TreeNode[] treeNodeType = new TreeNode[0];
+		ArrayList<TreeNode> locationNodes = new ArrayList<TreeNode>();
+
+		// create a node for each location and add the matching cars
+		for (Iterator<String> locationIterator = locations.keySet().iterator(); locationIterator
+				.hasNext();) {
+			String locationString = (String) locationIterator.next();
+			// neue location node erstellen
+			TreeNode locationNode = new TreeNode(new NodeBean(locationString));
+			// childs der location mappen
+			locationNode.setChildren(locations.get(locationString).toArray(
+					treeNodeType));
+			// node zu den locationNodes hinzufügen
+			locationNodes.add(locationNode);
+		}
+
+		// map all locations to the parent node
+		parent.setChildren(locationNodes.toArray(treeNodeType));
 	}
 
 	/**
@@ -307,35 +324,53 @@ public class Car2goView extends ViewPart {
 	 *            TreeNode of the cars
 	 */
 	private void groupCarsByFuel(Set<ICar> cars, TreeNode parent) {
-		//TODO auf setChildren umstellen
+		TreeNode[] parentChilds = new TreeNode[4];
+		// dummy tree for ArrayList Cast
+		TreeNode[] treeNodeType = new TreeNode[0];
+
+		// Build the goups
 		TreeNode nodeFuelState44 = new TreeNode(new NodeBean("4/4",
 				"resources/icons/tree/100percent.png"));
-		nodeFuelState44.setParent(parent);
 		TreeNode nodeFuelState34 = new TreeNode(new NodeBean("3/4",
 				"resources/icons/tree/75percent.png"));
-		nodeFuelState34.setParent(parent);
 		TreeNode nodeFuelState24 = new TreeNode(new NodeBean("2/4",
 				"resources/icons/tree/50percent.png"));
-		nodeFuelState24.setParent(parent);
 		TreeNode nodeFuelState14 = new TreeNode(new NodeBean("1/4",
 				"resources/icons/tree/25percent.png"));
-		nodeFuelState14.setParent(parent);
 
+		parentChilds[0] = nodeFuelState44;
+		parentChilds[1] = nodeFuelState34;
+		parentChilds[2] = nodeFuelState24;
+		parentChilds[3] = nodeFuelState14;
+
+		parent.setChildren(parentChilds);
+
+		ArrayList<TreeNode> childs44 = new ArrayList<TreeNode>();
+		ArrayList<TreeNode> childs34 = new ArrayList<TreeNode>();
+		ArrayList<TreeNode> childs24 = new ArrayList<TreeNode>();
+		ArrayList<TreeNode> childs14 = new ArrayList<TreeNode>();
+
+		// Group the cars
 		Iterator<ICar> vacantIterator = cars.iterator();
 		while (vacantIterator.hasNext()) {
 			ICar iCar = (ICar) vacantIterator.next();
 			TreeNode node = new TreeNode(iCar);
 
 			if (iCar.getFuelState() > 75) {
-				node.setParent(nodeFuelState44);
+				childs44.add(node);
 			} else if (iCar.getFuelState() > 50) {
-				node.setParent(nodeFuelState34);
+				childs34.add(node);
 			} else if (iCar.getFuelState() > 25) {
-				node.setParent(nodeFuelState24);
+				childs24.add(node);
 			} else {
-				node.setParent(nodeFuelState14);
+				childs14.add(node);
 			}
 		}
+
+		nodeFuelState44.setChildren(childs44.toArray(treeNodeType));
+		nodeFuelState34.setChildren(childs34.toArray(treeNodeType));
+		nodeFuelState24.setChildren(childs24.toArray(treeNodeType));
+		nodeFuelState14.setChildren(childs14.toArray(treeNodeType));
 	}
 
 	/**

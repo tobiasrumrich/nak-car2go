@@ -24,6 +24,7 @@ public class AddBookmarkHandler extends AbstractHandler {
 				.getCurrentSelection(event);
 		if (!currentSelection.isEmpty()) {
 			if (!(currentSelection.getFirstElement() instanceof ICar)) {
+				System.out.println("AddBookmarkHandler: No car selected!");
 				return null;
 			}
 			ICar car = (ICar) currentSelection.getFirstElement();

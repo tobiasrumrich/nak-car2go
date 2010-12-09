@@ -32,6 +32,7 @@ public class CarEditHandler extends AbstractHandler {
 				.getCurrentSelection(event);
 		if (!currentSelection.isEmpty()) {
 			if (!(currentSelection.getFirstElement() instanceof ICar)) {
+				System.out.println("CarEditHandler: No car selected!");
 				return null;
 			}
 			ICar car = (ICar) currentSelection.getFirstElement();

@@ -91,7 +91,7 @@ public class UsernameDialog extends TitleAreaDialog {
 
 		Button cancelButton = createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
-		cancelButton.setText("Ohne Anmeldung");
+		cancelButton.setText("Anonym");
 	}
 
 	/**

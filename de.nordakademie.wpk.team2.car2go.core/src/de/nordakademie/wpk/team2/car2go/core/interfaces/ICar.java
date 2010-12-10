@@ -1,6 +1,7 @@
 package de.nordakademie.wpk.team2.car2go.core.interfaces;
 
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.EState;
+import java.io.Serializable;
+
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
 
 /**
@@ -8,7 +9,7 @@ import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
  * @author Rumrich, Moehring
  *
  */
-public interface ICar {
+public interface ICar extends Serializable {
 	/**
 	 * Returns the description as offered by the REST service or the value that has been set using setDescription()
 	 */

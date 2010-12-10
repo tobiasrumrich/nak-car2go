@@ -12,8 +12,8 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.Car;
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.EState;
 import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
+import de.nordakademie.wpk.team2.car2go.core.interfaces.EState;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 
 /**

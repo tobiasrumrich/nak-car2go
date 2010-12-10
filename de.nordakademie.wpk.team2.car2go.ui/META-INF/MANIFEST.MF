@@ -7,7 +7,18 @@ Bundle-Activator: de.nordakademie.wpk.team2.car2go.ui.Activator
 Bundle-Vendor: Team 2
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.ui.forms
+ org.eclipse.ui.forms,
+ de.nordakademie.wpk.team2.car2go.iface;bundle-version="1.0.0",
+ com.springsource.org.aopalliance;bundle-version="1.0.0",
+ org.springframework.bundle.osgi.core;bundle-version="1.1.2",
+ org.springframework.bundle.osgi.extender;bundle-version="1.1.2",
+ org.springframework.bundle.osgi.io;bundle-version="1.1.2",
+ org.springframework.bundle.spring.aop;bundle-version="2.5.5",
+ org.springframework.bundle.spring.beans;bundle-version="2.5.5",
+ org.springframework.bundle.spring.context;bundle-version="2.5.5",
+ org.springframework.bundle.spring.context.support;bundle-version="2.5.5",
+ org.springframework.bundle.spring.core;bundle-version="2.5.5",
+ org.springframework.bundle.spring.web;bundle-version="2.5.5"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

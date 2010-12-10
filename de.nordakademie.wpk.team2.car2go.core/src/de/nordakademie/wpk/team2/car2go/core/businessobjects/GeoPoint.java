@@ -1,11 +1,14 @@
 package de.nordakademie.wpk.team2.car2go.core.businessobjects;
 
+import de.nordakademie.wpk.team2.car2go.core.interfaces.IGeoPoint;
+
 /**
  * 
  * @author Rumrich, Moehring
  *
  */
-public class GeoPoint {
+public class GeoPoint implements IGeoPoint {
+	private static final long serialVersionUID = 1L;
 	private float longitude;
 	private float latitude;
 	

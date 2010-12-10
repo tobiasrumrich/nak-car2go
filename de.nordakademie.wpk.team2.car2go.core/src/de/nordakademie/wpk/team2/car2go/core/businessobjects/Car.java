@@ -9,6 +9,7 @@ import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
  *
  */
 public class Car implements ICar {
+	private static final long serialVersionUID = 1L;
 	private String comment;
 	private String registrationNumber;
 	private int fuelState;
@@ -17,6 +18,10 @@ public class Car implements ICar {
 	private Boolean vacantState;
 	private String location;
 	private GeoPoint coordinates;
+	
+	public Car() {
+		super();
+	}
 	
 	public GeoPoint getCoordinates() {
 		return coordinates;

@@ -32,6 +32,7 @@
 			<fileset dir="dist/bin">
 				<include name="de/nordakademie/wpk/team2/car2go/core/interfaces/*" />
 				<include name="de/nordakademie/wpk/team2/car2go/core/exception/*" />
+				<include name="de/nordakademie/wpk/team2/car2go/core/businessobjects/*" />
 			</fileset>
 		</jar>
 	</target>

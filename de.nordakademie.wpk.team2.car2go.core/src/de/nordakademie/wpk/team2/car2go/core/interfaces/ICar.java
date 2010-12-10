@@ -2,8 +2,6 @@ package de.nordakademie.wpk.team2.car2go.core.interfaces;
 
 import java.io.Serializable;
 
-import de.nordakademie.wpk.team2.car2go.core.businessobjects.GeoPoint;
-
 /**
  * 
  * @author Rumrich, Moehring
@@ -66,5 +64,5 @@ public interface ICar extends Serializable {
 	 * Returns the exact GPS position of the car as GeoPoint
 	 * @return GeoPoint with the cars position
 	 */
-	public GeoPoint getCoordinates();
+	public IGeoPoint getCoordinates();
 }

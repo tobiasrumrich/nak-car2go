@@ -17,6 +17,32 @@
       [Enter License Description here.]
    </license>
 
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui.forms"/>
+      <import plugin="de.nordakademie.wpk.team2.car2go.iface" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.springsource.org.aopalliance" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.osgi.core" version="1.1.2" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.osgi.extender" version="1.1.2" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.osgi.io" version="1.1.2" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.spring.aop" version="2.5.5" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.spring.beans" version="2.5.5" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.spring.context" version="2.5.5" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.spring.context.support" version="2.5.5" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.spring.core" version="2.5.5" match="greaterOrEqual"/>
+      <import plugin="org.springframework.bundle.spring.web" version="2.5.5" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.logging"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.osgi.services"/>
+      <import plugin="com.instantiations.designer.runtime.lib"/>
+      <import plugin="com.instantiations.eclipse.ui"/>
+      <import plugin="org.eclipse.equinox.common"/>
+      <import plugin="org.apache.commons.httpclient"/>
+      <import plugin="javax.servlet.jsp"/>
+      <import plugin="javax.servlet"/>
+   </requires>
+
    <plugin
          id="de.nordakademie.wpk.team2.car2go.product"
          download-size="0"
@@ -30,5 +56,71 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="de.nordakademie.wpk.team2.car2go.iface"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.springsource.org.aopalliance"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.osgi.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.osgi.extender"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.osgi.io"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.spring.aop"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.spring.beans"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.spring.context"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.spring.context.support"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.spring.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.springframework.bundle.spring.web"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>

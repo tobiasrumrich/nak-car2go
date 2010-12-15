@@ -1,5 +1,9 @@
 package de.nordakademie.wpk.team2.car2go.core.exception;
-
+/**
+ * 
+ * @author Moehring, Rumrich
+ *
+ */
 public class DuplicateBookmarkException extends Exception {
 	private static final long serialVersionUID = 1L;
 

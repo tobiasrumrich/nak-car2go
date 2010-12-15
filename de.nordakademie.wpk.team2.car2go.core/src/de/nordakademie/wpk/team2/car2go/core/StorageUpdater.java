@@ -9,9 +9,11 @@ import de.nordakademie.wpk.team2.car2go.core.interfaces.IUpdateableCarStorageOwn
 import de.nordakademie.wpk.team2.car2go.core.xmldata.CarLoader;
 
 /**
+ * Thread that periodically updates the carStorage of an
+ * IUpdateableCarStorageOwner object by calling the car2go web interface
  * 
- * @author Rumrich, Moehring
- *
+ * @author Moehring, Rumrich
+ * 
  */
 public class StorageUpdater extends Thread {
 	private static final Logger logger = Logger.getLogger(CarStorage.class);

@@ -6,9 +6,10 @@ import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumber
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
 
 /**
+ * Stores ICar objects and enables to search for ICar objects in the storage
  * 
- * @author Rumrich, Moehring
- *
+ * @author Moehring, Rumrich
+ * 
  */
 public interface ICarStorage {
 	/**
@@ -24,7 +25,6 @@ public interface ICarStorage {
 	 * @return Set<ICar>
 	 */
 	public Set<ICar> getCarSet();
-	
 
 	/**
 	 * Removes a car from the storage.
@@ -33,7 +33,8 @@ public interface ICarStorage {
 	 *            is a ICar object that equals to the car you would like to
 	 *            remove
 	 */
-	public void removeCar(ICar car) throws IllegalRegistrationNumberException, RegistrationNumberNotFoundException;
+	public void removeCar(ICar car) throws IllegalRegistrationNumberException,
+			RegistrationNumberNotFoundException;
 
 	/**
 	 * Removes a car from the storage
@@ -43,15 +44,19 @@ public interface ICarStorage {
 	 */
 	public void removeCar(String registration_number)
 			throws RegistrationNumberNotFoundException,
-			IllegalRegistrationNumberException, RegistrationNumberNotFoundException;
-	
+			IllegalRegistrationNumberException,
+			RegistrationNumberNotFoundException;
+
 	/**
 	 * Finds a car by it's registration number
+	 * 
 	 * @param registrationNumber
 	 * @return
-	 * @throws RegistrationNumberNotFoundException 
-	 * @throws IllegalRegistrationNumberException 
+	 * @throws RegistrationNumberNotFoundException
+	 * @throws IllegalRegistrationNumberException
 	 */
-	public ICar findCar(String registrationNumber) throws RegistrationNumberNotFoundException, IllegalRegistrationNumberException;
+	public ICar findCar(String registrationNumber)
+			throws RegistrationNumberNotFoundException,
+			IllegalRegistrationNumberException;
 
 }

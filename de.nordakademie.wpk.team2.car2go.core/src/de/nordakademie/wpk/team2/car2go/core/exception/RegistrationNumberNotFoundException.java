@@ -2,7 +2,7 @@ package de.nordakademie.wpk.team2.car2go.core.exception;
 
 /**
  * 
- * @author Rumrich
+ * @author Moehring, Rumrich
  *
  */
 public class RegistrationNumberNotFoundException extends Exception {

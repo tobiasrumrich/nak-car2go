@@ -12,9 +12,9 @@ import de.nordakademie.wpk.team2.car2go.core.exception.MapRetrievalException;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 
 /**
- * Diese Klasse stellt eine Anbindung an Google Maps bereit über die zu einem
- * ICar Objekt ein Kartenausschnitt mit dem aktuellen Standpunkt zurückgegeben
- * werden kann.
+ * This class is an connexion to Google Maps, that allows to retrieve an map
+ * extract from Google Maps for the current position of an ICar.
+ * 
  * 
  * @author Moehring, Rumrich
  * 
@@ -24,15 +24,14 @@ public class GoogleMapsLoader {
 			.getLogger(GoogleMapsLoader.class);
 
 	/**
-	 * Liefer ein Bitmap mit einem Kartenausschnitt mit dem Standort des
-	 * übergebenen ICar Objektes.
+	 * Returns a Bitmap with an map extract for the current position of the ICar provided
 	 * 
-	 * @param car - ist das ICar Objekt für das der Kartenausschnitt erzeugt werden soll
-	 * @param width - ist die Breite des Ausschnittes
-	 * @param height - ist die Höhe des Ausschnittes 
-	 * @param zoom - ist der Zoomfaktor des Ausschnittes
-	 * @return byte[] ist der angeforderte Kartenausschnitt
-	 * @throws MapRetrievalException
+	 * @param car is the ICar object
+	 * @param width is the width of the map extract
+	 * @param height is the height of the map extract
+	 * @param zoom is the zoom factor of the map extract
+	 * @return byte[] is the requested map extract as a bitmap
+	 * @throws MapRetrievalException is thrown if the loader was unable to retrieve the map extract from Google Maps
 	 */
 	public byte[] getMapForCar(ICar car, int width, int height, int zoom)
 			throws MapRetrievalException {
@@ -66,13 +65,14 @@ public class GoogleMapsLoader {
 	}
 
 	/**
-	 * Liefert die URL zurück, unter der ein Kartenausschnitt bei GoogleMaps für ein Fahrzeug abgerufen werden kann.
-	 * @param car - ist das ICar Objekt für das der Kartenausschnitt erzeugt werden soll
-	 * @param width - ist die Breite des Ausschnittes
-	 * @param height - ist die Höhe des Ausschnittes 
-	 * @param zoom - ist der Zoomfaktor des Ausschnittes
-	 * @return url - ist die angeforderte URL zum Kartenausschnitt als URL Objekt
-	 * @throws MalformedURLException
+	 * Returns the URL that can be used to retrieve a specific map extract from Google Maps
+	 * 
+	 * @param car is the ICar object
+	 * @param width is the width of the map extract
+	 * @param height is the height of the map extract
+	 * @param zoom is the zoom factor of the map extract
+	 * @return URL is the URL that can be used to retrieve the map extract image from Google
+	 * @throws MalformedURLException if the URL cannot be built
 	 */
 	private URL getUrlFromCar(ICar car, int width, int height, int zoom)
 			throws MalformedURLException {

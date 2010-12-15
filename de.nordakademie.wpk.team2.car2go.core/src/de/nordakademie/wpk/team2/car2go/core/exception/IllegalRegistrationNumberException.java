@@ -2,7 +2,7 @@ package de.nordakademie.wpk.team2.car2go.core.exception;
 
 /**
  * 
- * @author Rumrich
+ * @author Moehring, Rumrich
  *
  */
 public class IllegalRegistrationNumberException extends Exception {
@@ -11,8 +11,7 @@ public class IllegalRegistrationNumberException extends Exception {
 
 	@Override
 	public String getLocalizedMessage() {
-		return "Das Kennzeichen ist ungŸltig oder eine mehrfache Nutzung des Kennzeichens wurde durch eine ICarStorage festgestellt.";
-		// return super.getLocalizedMessage();
+		return "Das Kennzeichen ist ungültig oder eine mehrfache Nutzung des Kennzeichens wurde durch eine ICarStorage festgestellt.";
 	}
 
 	@Override

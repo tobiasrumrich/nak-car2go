@@ -14,8 +14,7 @@ public class Perspective implements IPerspectiveFactory {
 		layout.setEditorAreaVisible(true);
 		layout.addStandaloneView(
 				"de.nordakademie.wpk.team2.car2go.ui.views.Car2goView", true,
-				IPageLayout.LEFT, 0.65f, layout.getEditorArea());
+				IPageLayout.LEFT, 0.58f, layout.getEditorArea());
 		layout.setFixed(true);
 	}
-
 }

@@ -28,6 +28,14 @@
       <product
             application="de.nordakademie.wpk.team2.car2go.product.application"
             name="Car2Go">
+         <property
+               name="appName"
+               value="Car2Go">
+         </property>
+         <property
+               name="windowImages"
+               value="platform:/plugin/de.nordakademie.wpk.team2.car2go.ui/resources/icons/car2goIcon16x16.png,platform:/plugin/de.nordakademie.wpk.team2.car2go.ui/resources/icons/car2goIcon32x32.png">
+         </property>
       </product>
    </extension>
 

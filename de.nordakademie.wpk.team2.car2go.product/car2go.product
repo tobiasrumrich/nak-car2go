@@ -3,7 +3,6 @@
 
 <product name="Car2Go" id="de.nordakademie.wpk.team2.car2go.product.Car2Go" application="de.nordakademie.wpk.team2.car2go.product.application" useFeatures="true" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
@@ -21,8 +20,8 @@
       </win>
    </launcher>
 
-
    <vm>
+      <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JRE-1.1</windows>
    </vm>
 
    <plugins>

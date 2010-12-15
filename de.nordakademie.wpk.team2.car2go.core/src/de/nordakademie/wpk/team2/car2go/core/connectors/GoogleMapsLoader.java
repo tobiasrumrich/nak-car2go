@@ -12,24 +12,39 @@ import de.nordakademie.wpk.team2.car2go.core.exception.MapRetrievalException;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 
 /**
+ * Diese Klasse stellt eine Anbindung an Google Maps bereit über die zu einem
+ * ICar Objekt ein Kartenausschnitt mit dem aktuellen Standpunkt zurückgegeben
+ * werden kann.
  * 
- * @author Moehring
- *
+ * @author Moehring, Rumrich
+ * 
  */
 public class GoogleMapsLoader {
-	private static final Logger logger = Logger.getLogger(GoogleMapsLoader.class);
-	
-	// Verwenden der Maps: new Image(Display.getCurrent(), new
-	// ByteArrayInputStream(new GoogleMapsLoader().getMapForCar(null)));
-	public byte[] getMapForCar(ICar car, int width, int height, int zoom) throws MapRetrievalException {
+	private static final Logger logger = Logger
+			.getLogger(GoogleMapsLoader.class);
+
+	/**
+	 * Liefer ein Bitmap mit einem Kartenausschnitt mit dem Standort des
+	 * übergebenen ICar Objektes.
+	 * 
+	 * @param car - ist das ICar Objekt für das der Kartenausschnitt erzeugt werden soll
+	 * @param width - ist die Breite des Ausschnittes
+	 * @param height - ist die Höhe des Ausschnittes 
+	 * @param zoom - ist der Zoomfaktor des Ausschnittes
+	 * @return byte[] ist der angeforderte Kartenausschnitt
+	 * @throws MapRetrievalException
+	 */
+	public byte[] getMapForCar(ICar car, int width, int height, int zoom)
+			throws MapRetrievalException {
 		logger.info("Loading map from google for car " + car);
-		
+
 		if (car == null || width <= 10 || height <= 10 || zoom <= 0) {
 			throw new MapRetrievalException();
 		}
-		
+
 		try {
-			InputStream openStream = this.getUrlFromCar(car, width, height, zoom).openStream();
+			InputStream openStream = this.getUrlFromCar(car, width, height,
+					zoom).openStream();
 
 			int tmpRead = 0;
 			ByteArrayOutputStream urlDataStream = new ByteArrayOutputStream();
@@ -50,10 +65,20 @@ public class GoogleMapsLoader {
 		throw new MapRetrievalException();
 	}
 
+	/**
+	 * Liefert die URL zurück, unter der ein Kartenausschnitt bei GoogleMaps für ein Fahrzeug abgerufen werden kann.
+	 * @param car - ist das ICar Objekt für das der Kartenausschnitt erzeugt werden soll
+	 * @param width - ist die Breite des Ausschnittes
+	 * @param height - ist die Höhe des Ausschnittes 
+	 * @param zoom - ist der Zoomfaktor des Ausschnittes
+	 * @return url - ist die angeforderte URL zum Kartenausschnitt als URL Objekt
+	 * @throws MalformedURLException
+	 */
 	private URL getUrlFromCar(ICar car, int width, int height, int zoom)
 			throws MalformedURLException {
-		logger.info("Generating Google-URL for car with registraionnumber " + car);
-		
+		logger.info("Generating Google-URL for car with registraionnumber "
+				+ car);
+
 		URL url = new URL(
 				"http://maps.google.com/maps/api/staticmap?size="
 						+ width

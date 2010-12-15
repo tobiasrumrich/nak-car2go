@@ -6,5 +6,14 @@ package de.nordakademie.wpk.team2.car2go.core.interfaces;
  *
  */
 public enum EState {
-	EXCELLENT,GOOD,ISSUESEXIST,UNACCEPTABLE
+	EXCELLENT("Excellent"), GOOD("Gut"),ISSUESEXIST("akzeptabel"),UNACCEPTABLE("Unakzeptabel");
+	String text;
+	
+	private EState(String text){
+		this.text = text;
+	}
+	
+	public String getText(){
+		return this.text;
+	}
 }

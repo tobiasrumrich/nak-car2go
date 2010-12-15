@@ -5,8 +5,9 @@ import org.apache.log4j.Logger;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarRegistrationNumberValidator;
 
 /**
- * 
- * @author Rumrich, Moehring
+ * Diese Klasse ist die Implementation eines Kennzeichenvalidators dar, der
+ * prüft ob das zu validierende Kennzeichen weder null noch leer ist. 
+ * @author Moehring, Rumrich
  *
  */
 public class GenericRegistrationNumberValidator implements

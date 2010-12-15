@@ -28,12 +28,10 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.swtdesigner.ResourceManager;
 
-import de.nordakademie.wpk.team2.car2go.core.exception.IllegalUsernameException;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarService;
 import de.nordakademie.wpk.team2.car2go.ui.Activator;
 import de.nordakademie.wpk.team2.car2go.ui.dialog.UsernameDialog;
-import de.nordakademie.wpk.team2.car2go.ui.exceptions.ServiceNotAvailableException;
 import de.nordakademie.wpk.team2.car2go.ui.providers.CarLabelProvider;
 
 /**
@@ -215,18 +213,8 @@ public class Car2goView extends ViewPart {
 	 */
 	private void initializeContextMenu() {
 		MenuManager contextMenuManager = new MenuManager();
-
-		if (user.isSignIn()) {
-			System.setProperty(
-					"de.nordakademie.wpk.team2.car2go.isUserSignedIn", "true");
-		} else {
-			System.setProperty(
-					"de.nordakademie.wpk.team2.car2go.isUserSignedIn", "false");
-		}
-
 		getViewSite().registerContextMenu(contextMenuManager, treeViewer);
 		getViewSite().setSelectionProvider(treeViewer);
-
 		Menu contextMenu = contextMenuManager.createContextMenu(treeViewer
 				.getTree());
 		carTree.setMenu(contextMenu);
@@ -239,7 +227,12 @@ public class Car2goView extends ViewPart {
 	 * @return The A list of TreeNodes with cars and vacant or bookmarked.
 	 */
 	private TreeNode[] getCars() {
+		Set<ICar> vacantCars;
 		TreeNode[] rootTreeNode = new TreeNode[2];
+		ArrayList<TreeNode> vacantChilds = new ArrayList<TreeNode>();
+		ArrayList<TreeNode> bookmarkedChilds = new ArrayList<TreeNode>();
+		// dummy tree for ArrayList Cast
+		TreeNode[] treeNodeType = new TreeNode[0];
 
 		NodeBean bookmarked;
 		if (user.isSignIn()) {
@@ -259,35 +252,20 @@ public class Car2goView extends ViewPart {
 		nodeVacant.setParent(null);
 		rootTreeNode[1] = nodeVacant;
 
-		ArrayList<TreeNode> vacantChilds = new ArrayList<TreeNode>();
-		ArrayList<TreeNode> bookmarkedChilds = new ArrayList<TreeNode>();
-		// dummy tree for ArrayList Cast
-		TreeNode[] treeNodeType = new TreeNode[0];
-
 		// Get the connection to the CarService
-		ICarService ics;
-		Set<ICar> vacantCars;
-		try {
-			ics = Activator.getDefault().getCarService();
-		} catch (ServiceNotAvailableException e1) {
-			TreeNode noVacantNode = new TreeNode(new NodeBean(
-					"Keine Daten verfügbar", "resources/icons/tree/bomb.png"));
-			TreeNode noBookmarkedNode = new TreeNode(new NodeBean(
-					"Keine Daten verfügbar", "resources/icons/tree/bomb.png"));
-
-			vacantChilds.add(noVacantNode);
-			bookmarkedChilds.add(noBookmarkedNode);
-
-			nodeBookmarked.setChildren(bookmarkedChilds.toArray(treeNodeType));
-			nodeVacant.setChildren(vacantChilds.toArray(treeNodeType));
-
-			errorMessage(e1.getLocalizedMessage());
-			return rootTreeNode;
-		}
+		ICarService ics = Activator.getDefault().getCarService();
 
 		// Get the vacant cars
-		vacantCars = ics.getVacantCars();
-		groupCars(vacantCars, nodeVacant, comboView.getText());
+		try {
+			vacantCars = ics.getVacantCars();
+			groupCars(vacantCars, nodeVacant, comboView.getText());
+		} catch (Exception e) {
+			TreeNode noVacantNode = new TreeNode(new NodeBean(
+					"Keine Daten verfügbar", "resources/icons/tree/bomb.png"));
+			vacantChilds.add(noVacantNode);
+			nodeVacant.setChildren(vacantChilds.toArray(treeNodeType));
+			errorMessage("Der Server ist nicht erreichbar.");
+		}
 
 		// Get the bookmarked cars if the user is signed in
 		if (user.isSignIn()) {
@@ -295,11 +273,11 @@ public class Car2goView extends ViewPart {
 				Set<ICar> bookmarkedCars = ics.getBookmarkedCars(getUser()
 						.getUsername());
 				groupCars(bookmarkedCars, nodeBookmarked, comboView.getText());
-			} catch (IllegalUsernameException e) {
-				TreeNode nodeNoBookmarks = new TreeNode(new NodeBean(
-						"Keine Bookmarks vorhanden",
-						"resources/icons/GreenBall.png"));
-				bookmarkedChilds.add(nodeNoBookmarks);
+			} catch (Exception e) {
+				TreeNode noBookmarkedNode = new TreeNode(new NodeBean(
+						"Keine Daten verfügbar",
+						"resources/icons/tree/bomb.png"));
+				bookmarkedChilds.add(noBookmarkedNode);
 				nodeBookmarked.setChildren(bookmarkedChilds
 						.toArray(treeNodeType));
 			}
@@ -451,6 +429,14 @@ public class Car2goView extends ViewPart {
 			lblSignIn.setImage(ResourceManager.getPluginImage(
 					"de.nordakademie.wpk.team2.car2go.ui",
 					"resources/icons/greenBall.png"));
+		}
+
+		if (user.isSignIn()) {
+			System.setProperty(
+					"de.nordakademie.wpk.team2.car2go.isUserSignedIn", "true");
+		} else {
+			System.setProperty(
+					"de.nordakademie.wpk.team2.car2go.isUserSignedIn", "false");
 		}
 	}
 }

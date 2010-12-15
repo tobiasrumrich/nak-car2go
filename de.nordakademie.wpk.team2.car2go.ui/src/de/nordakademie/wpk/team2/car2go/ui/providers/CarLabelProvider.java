@@ -74,9 +74,9 @@ public class CarLabelProvider extends LabelProvider implements
 				case 1:
 					return String.valueOf(car.getFuelState());
 				case 2:
-					return String.valueOf(car.getExteriorState());
+					return car.getExteriorState().getText();
 				case 3:
-					return String.valueOf(car.getInteriorState());
+					return car.getInteriorState().getText();
 				case 4:
 					return String.valueOf(car.getCoordinates().getLongitude())
 							+ " / "

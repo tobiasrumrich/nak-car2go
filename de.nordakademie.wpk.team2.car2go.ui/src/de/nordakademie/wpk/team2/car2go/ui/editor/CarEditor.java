@@ -26,7 +26,6 @@ import de.nordakademie.wpk.team2.car2go.core.exception.IllegalRegistrationNumber
 import de.nordakademie.wpk.team2.car2go.core.exception.RegistrationNumberNotFoundException;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarService;
 import de.nordakademie.wpk.team2.car2go.ui.Activator;
-import de.nordakademie.wpk.team2.car2go.ui.exceptions.ServiceNotAvailableException;
 
 /**
  * The CarEditor displays all information for the selected car and offers the
@@ -49,8 +48,6 @@ public class CarEditor extends EditorPart {
 	private boolean dirty;
 	private Label lblGoogleMapsPosition;
 	private Label lblVacantImage;
-
-	// TODO RegistrationNumber als Überschrift setzen
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -188,14 +185,16 @@ public class CarEditor extends EditorPart {
 	 */
 	private void setupWidgetsWithData() {
 		CarEditorInput editorInput = (CarEditorInput) getEditorInput();
+		setPartName(editorInput.getCar().getRegistrationNumber());
+
 		txtRegistrationNumber.setText(editorInput.getCar()
 				.getRegistrationNumber());
 		txtFuelState.setText(String
 				.valueOf(editorInput.getCar().getFuelState()));
-		txtExteriorState.setText(String.valueOf(editorInput.getCar()
-				.getExteriorState()));
-		txtInteriorState.setText(String.valueOf(editorInput.getCar()
-				.getInteriorState()));
+		txtExteriorState.setText(editorInput.getCar()
+				.getExteriorState().getText());
+		txtInteriorState.setText(editorInput.getCar()
+				.getInteriorState().getText());
 		txtCoordinates.setText(String.valueOf(editorInput.getCar()
 				.getCoordinates().getLongitude())
 				+ " / "
@@ -259,15 +258,7 @@ public class CarEditor extends EditorPart {
 
 		// Save to the domain
 		editorInput.getCar().setComment(txtDescription.getText());
-		ICarService ics;
-
-		// Get the service
-		try {
-			ics = Activator.getDefault().getCarService();
-		} catch (ServiceNotAvailableException e) {
-			errorMessage(e.getLocalizedMessage());
-			return;
-		}
+		ICarService ics = Activator.getDefault().getCarService();
 
 		// Save the comment
 		try {
@@ -279,6 +270,8 @@ public class CarEditor extends EditorPart {
 			errorMessage(e.getLocalizedMessage());
 		} catch (IllegalCommentException e) {
 			errorMessage(e.getLocalizedMessage());
+		} catch (Exception e){
+			errorMessage("Der Server ist nicht erreichbar.");
 		}
 	}
 

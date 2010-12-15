@@ -5,6 +5,7 @@
          point="org.eclipse.ui.views">
       <view
             class="de.nordakademie.wpk.team2.car2go.ui.views.Car2goView"
+            icon="resources/icons/car2goIcon16x16.png"
             id="de.nordakademie.wpk.team2.car2go.ui.views.Car2goView"
             name="Car2Go"
             restorable="true">
@@ -20,6 +21,13 @@
                commandId="de.nordakademie.wpk.team2.car2go.ui.addBookmark"
                icon="resources/icons/menu/addToBookmark.png"
                style="push">
+            <visibleWhen
+                  checkEnabled="true">
+               <systemTest
+                     property="de.nordakademie.wpk.team2.car2go.isUserSignedIn"
+                     value="true">
+               </systemTest>
+            </visibleWhen>
          </command>
          <command
                commandId="de.nordakademie.wpk.team2.car2go.ui.removeBookmark"
@@ -27,15 +35,10 @@
                style="push">
             <visibleWhen
                   checkEnabled="true">
-               <and>
-                  <instanceof
-                        value="de.nordakademie.wpk.team2.car2go.core.interfaces.ICar">
-                  </instanceof>
-                  <systemTest
-                        property="de.nordakademie.wpk.team2.car2go.isUserSignedIn"
-                        value="true">
-                  </systemTest>
-               </and>
+               <systemTest
+                     property="de.nordakademie.wpk.team2.car2go.isUserSignedIn"
+                     value="true">
+               </systemTest>
             </visibleWhen>
          </command>
          <command

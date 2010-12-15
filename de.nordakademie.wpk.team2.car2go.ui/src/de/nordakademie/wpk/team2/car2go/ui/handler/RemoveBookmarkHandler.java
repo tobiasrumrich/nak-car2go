@@ -14,7 +14,6 @@ import de.nordakademie.wpk.team2.car2go.core.exception.UsernameNotFoundException
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICarService;
 import de.nordakademie.wpk.team2.car2go.ui.Activator;
-import de.nordakademie.wpk.team2.car2go.ui.exceptions.ServiceNotAvailableException;
 import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
 
 /**
@@ -25,7 +24,8 @@ import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
 public class RemoveBookmarkHandler extends AbstractHandler {
 
 	/**
-	 * This method removes the bookmark from an selected car for the registered user
+	 * This method removes the bookmark from an selected car for the registered
+	 * user
 	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -49,28 +49,23 @@ public class RemoveBookmarkHandler extends AbstractHandler {
 				view.errorMessage("Sie müssen angemeldet sein.");
 				return null;
 			}
-			
+
 			// get the ICarService
-			ICarService ics;
-			try {
-				ics = Activator.getDefault().getCarService();
-			} catch (ServiceNotAvailableException e1) {
-				view.errorMessage(e1.getLocalizedMessage());
-				return null;
-			}
+			ICarService ics = Activator.getDefault().getCarService();
 
 			// try to remove the bookmark
 			try {
 				ics.removeFromBookmark(car.getRegistrationNumber(), view
 						.getUser().getUsername());
 			} catch (RegistrationNumberNotFoundException e) {
-				view.errorMessage("Auto wurde nicht auf dem Server gefunden");
 			} catch (IllegalRegistrationNumberException e) {
 				view.errorMessage("Ungültiges Nummernschild");
 			} catch (IllegalUsernameException e) {
 				view.errorMessage("Ungültiger Username");
 			} catch (UsernameNotFoundException e) {
 				view.errorMessage("Ungültiger Username");
+			} catch (Exception e) {
+				view.errorMessage("Der Server ist nicht erreichbar.");
 			}
 			view.refresh();
 		} else {

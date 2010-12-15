@@ -2,12 +2,20 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Iface
 Bundle-SymbolicName: de.nordakademie.wpk.team2.car2go.iface
-Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: de.nordakademie.wpk.team2.car2go.iface.Activator
+Bundle-Version: 1.0.0
+Bundle-ClassPath: de.nordakademie.wpk.team2.car2go.interface.jar
 Bundle-Vendor: Team 2
-Require-Bundle: org.eclipse.core.runtime
+Export-Package: de.nordakademie.wpk.team2.car2go.core.businessobjects,
+ de.nordakademie.wpk.team2.car2go.core.exception,
+ de.nordakademie.wpk.team2.car2go.core.interfaces
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: de.nordakademie.wpk.team2.car2go.interface.jar,
- .
-Export-Package: de.nordakademie.wpk.team2.car2go.core
+Require-Bundle: com.springsource.org.aopalliance;bundle-version="1.0.0",
+ org.springframework.bundle.osgi.core;bundle-version="1.1.2",
+ org.springframework.bundle.osgi.extender;bundle-version="1.1.2",
+ org.springframework.bundle.osgi.io;bundle-version="1.1.2",
+ org.springframework.bundle.spring.aop;bundle-version="2.5.5",
+ org.springframework.bundle.spring.beans;bundle-version="2.5.5",
+ org.springframework.bundle.spring.context;bundle-version="2.5.5",
+ org.springframework.bundle.spring.context.support;bundle-version="2.5.5",
+ org.springframework.bundle.spring.core;bundle-version="2.5.5",
+ org.springframework.bundle.spring.web;bundle-version="2.5.5"

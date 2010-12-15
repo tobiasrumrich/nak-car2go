@@ -18,6 +18,10 @@ import de.nordakademie.wpk.team2.car2go.ui.views.NodeBean;
 public class CarLabelProvider extends LabelProvider implements
 		ITableLabelProvider {
 
+	/**
+	 * This method returns the NodeBean's image if set for the first column or
+	 * the Vacant state of the ICar in the first column.
+	 */
 	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		TreeNode node = (TreeNode) element;
@@ -48,6 +52,9 @@ public class CarLabelProvider extends LabelProvider implements
 		return null;
 	}
 
+	/**
+	 * Returns the NodeBeans text or the ICar attribute.
+	 */
 	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		TreeNode node = (TreeNode) element;
@@ -72,7 +79,8 @@ public class CarLabelProvider extends LabelProvider implements
 					return String.valueOf(car.getInteriorState());
 				case 4:
 					return String.valueOf(car.getCoordinates().getLongitude())
-							+ " / "+ String.valueOf(car.getCoordinates()
+							+ " / "
+							+ String.valueOf(car.getCoordinates()
 									.getLongitude());
 				case 5:
 					return car.getLocation();

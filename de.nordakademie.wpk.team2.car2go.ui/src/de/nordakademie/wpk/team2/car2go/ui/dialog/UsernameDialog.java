@@ -34,8 +34,9 @@ public class UsernameDialog extends TitleAreaDialog {
 	 * 
 	 * @param parentShell
 	 */
-	public UsernameDialog(Shell parentShell) {
+	public UsernameDialog(Shell parentShell, UserBean bean) {
 		super(parentShell);
+		user = bean;
 		setShellStyle(SWT.BORDER);
 		setHelpAvailable(false);
 	}
@@ -100,9 +101,5 @@ public class UsernameDialog extends TitleAreaDialog {
 	@Override
 	protected Point getInitialSize() {
 		return new Point(450, 210);
-	}
-
-	public void setUserBean(UserBean user) {
-		this.user = user;
 	}
 }

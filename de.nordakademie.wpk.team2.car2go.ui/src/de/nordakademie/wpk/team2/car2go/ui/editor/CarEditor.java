@@ -35,8 +35,6 @@ import de.nordakademie.wpk.team2.car2go.ui.exceptions.ServiceNotAvailableExcepti
  * @author: Alexander Westen, Matthias Lüders
  */
 public class CarEditor extends EditorPart {
-	public CarEditor() {
-	}
 
 	public static final String ID = "de.nordakademie.wpk.team2.car2go.ui.editor.CarEditor"; //$NON-NLS-1$
 	public static final int PROP_SAVED = 42;
@@ -156,7 +154,7 @@ public class CarEditor extends EditorPart {
 		setupWidgetsWithData();
 		setupDirtyHandling();
 	}
-	
+
 	@Override
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
@@ -208,6 +206,7 @@ public class CarEditor extends EditorPart {
 			txtDescription.setText(editorInput.getCar().getComment());
 		}
 
+		// display the vacant state as a picture
 		if (editorInput.getCar().getVacantState()) {
 			lblVacantImage.setImage(ResourceManager.getPluginImage(
 					"de.nordakademie.wpk.team2.car2go.ui",
@@ -218,6 +217,7 @@ public class CarEditor extends EditorPart {
 					"resources/icons/redBall.png"));
 		}
 
+		// convert the ByteArray to a awesome google maps picture
 		try {
 			byte[] byteArray = Activator
 					.getDefault()
@@ -237,6 +237,9 @@ public class CarEditor extends EditorPart {
 		txtDescription.setFocus();
 	}
 
+	/**
+	 * Save progress etc.
+	 */
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		// Do the Save As operation
@@ -248,6 +251,9 @@ public class CarEditor extends EditorPart {
 		monitor.done();
 	}
 
+	/**
+	 * Setup the domain with the data.
+	 */
 	private void setupDomainWithData() {
 		CarEditorInput editorInput = (CarEditorInput) getEditorInput();
 

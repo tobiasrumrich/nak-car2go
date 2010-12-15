@@ -24,6 +24,9 @@ import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
  */
 public class RemoveBookmarkHandler extends AbstractHandler {
 
+	/**
+	 * This method removes the bookmark from an selected car for the registered user
+	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IStructuredSelection currentSelection = (IStructuredSelection) HandlerUtil
@@ -38,6 +41,7 @@ public class RemoveBookmarkHandler extends AbstractHandler {
 			ICar car = (ICar) node.getValue();
 			System.out.println("Selected Car:" + car.getRegistrationNumber());
 
+			// view reference
 			Car2goView view = (Car2goView) HandlerUtil.getActiveSite(event)
 					.getPage().findView(Car2goView.ID);
 
@@ -46,6 +50,7 @@ public class RemoveBookmarkHandler extends AbstractHandler {
 				return null;
 			}
 			
+			// get the ICarService
 			ICarService ics;
 			try {
 				ics = Activator.getDefault().getCarService();
@@ -54,6 +59,7 @@ public class RemoveBookmarkHandler extends AbstractHandler {
 				return null;
 			}
 
+			// try to remove the bookmark
 			try {
 				ics.removeFromBookmark(car.getRegistrationNumber(), view
 						.getUser().getUsername());

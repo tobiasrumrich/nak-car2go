@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.jface.viewers.TreeNodeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -165,32 +163,6 @@ public class Car2goView extends ViewPart {
 			}
 		});
 		treeViewer.setComparer(null);
-		/*
-		 * treeViewer.setComparer(new IElementComparer() {
-		 * 
-		 * @Override public int hashCode(Object element) { return
-		 * element.hashCode(); }
-		 * 
-		 * @Override public boolean equals(Object a, Object b) { if (a
-		 * instanceof TreeNode && b instanceof TreeNode) { if (((TreeNode)
-		 * a).getValue() instanceof ICar && ((TreeNode) b).getValue() instanceof
-		 * ICar) { ICar c1 = (ICar) ((TreeNode) a).getValue(); ICar c2 = (ICar)
-		 * ((TreeNode) b).getValue(); if (c1 != null && c2 != null) { return
-		 * (c1.getRegistrationNumber().equals((c2 .getRegistrationNumber()))); }
-		 * } else if (((TreeNode) a).getValue() instanceof NodeBean &&
-		 * ((TreeNode) b).getValue() instanceof NodeBean) { NodeBean n1 =
-		 * (NodeBean) ((TreeNode) a).getValue(); NodeBean n2 = (NodeBean)
-		 * ((TreeNode) b).getValue(); if (n1 != null && n2 != null) { return
-		 * (n1.getNodeText().equals(n2.getNodeText())); } } } return
-		 * a.equals(b); } });
-		 */
-		// TODO tuh es!
-		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
-
-			@Override
-			public void doubleClick(DoubleClickEvent event) {
-			}
-		});
 
 		// initialize context menu
 		initializeContextMenu();
@@ -242,26 +214,15 @@ public class Car2goView extends ViewPart {
 	 * Initialize the ContextMenu
 	 */
 	private void initializeContextMenu() {
-		// TODO richtiges menu einbinden
 		MenuManager contextMenuManager = new MenuManager();
 
 		if (user.isSignIn()) {
 			System.setProperty(
-					"de.nordakademie.wpk.team2.car2go.ui.views.isUserSignedIn",
-					"true");
+					"de.nordakademie.wpk.team2.car2go.isUserSignedIn", "true");
 		} else {
 			System.setProperty(
-					"de.nordakademie.wpk.team2.car2go.ui.views.isUserSignedIn",
-					"false");
+					"de.nordakademie.wpk.team2.car2go.isUserSignedIn", "false");
 		}
-		/*
-		 * if (user.isSignIn()) { getViewSite() .registerContextMenu(
-		 * "de.nordakademie.wpk.team2.car2go.ui.views.Car2goView.menuSignedIn",
-		 * contextMenuManager, treeViewer); } else { getViewSite()
-		 * .registerContextMenu(
-		 * "de.nordakademie.wpk.team2.car2go.ui.views.Car2goView.menu",
-		 * contextMenuManager, treeViewer); }
-		 */
 
 		getViewSite().registerContextMenu(contextMenuManager, treeViewer);
 		getViewSite().setSelectionProvider(treeViewer);
@@ -473,8 +434,8 @@ public class Car2goView extends ViewPart {
 	 * cars and set the SignIn Icons.
 	 */
 	private void getUsernameDialog() {
-		UsernameDialog dialog = new UsernameDialog(this.getSite().getShell());
-		dialog.setUserBean(getUser());
+		UsernameDialog dialog = new UsernameDialog(this.getSite().getShell(),
+				getUser());
 		int returnCode = dialog.open();
 
 		if (getUser().getUsername() == "" || getUser().getUsername() == null

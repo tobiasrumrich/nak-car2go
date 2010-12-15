@@ -9,6 +9,8 @@ import de.nordakademie.wpk.team2.car2go.ui.exceptions.ServiceNotAvailableExcepti
 
 /**
  * The activator class controls the plug-in life cycle
+ * 
+ * @author: Alexander Westen, Matthias Lüders
  */
 public class Activator extends AbstractUIPlugin {
 
@@ -61,8 +63,9 @@ public class Activator extends AbstractUIPlugin {
 	 * Receive the CarService interface from the Server
 	 * 
 	 * @throws ServiceNotAvailableException
+	 *             when the CarService is currently unavailable.
 	 * 
-	 * @retun reference to the CarServer
+	 * @return reference to the CarServer
 	 */
 	public ICarService getCarService() throws ServiceNotAvailableException {
 

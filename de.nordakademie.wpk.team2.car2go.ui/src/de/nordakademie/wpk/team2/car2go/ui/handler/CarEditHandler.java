@@ -24,8 +24,6 @@ public class CarEditHandler extends AbstractHandler {
 
 	/**
 	 * This method calls the CarEditor for the selected car.
-	 * 
-	 * @Author: Alexander Westen, Matthias Lüders
 	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {

@@ -32,7 +32,7 @@
                         value="de.nordakademie.wpk.team2.car2go.core.interfaces.ICar">
                   </instanceof>
                   <systemTest
-                        property="de.nordakademie.wpk.team2.car2go.ui.views.isUserSignedIn"
+                        property="de.nordakademie.wpk.team2.car2go.isUserSignedIn"
                         value="true">
                   </systemTest>
                </and>

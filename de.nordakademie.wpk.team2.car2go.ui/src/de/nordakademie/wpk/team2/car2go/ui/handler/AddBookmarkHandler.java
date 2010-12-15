@@ -17,8 +17,16 @@ import de.nordakademie.wpk.team2.car2go.ui.Activator;
 import de.nordakademie.wpk.team2.car2go.ui.exceptions.ServiceNotAvailableException;
 import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
 
+/**
+ * Bookmark Handler for the tree
+ * 
+ * @author: Alexander Westen, Matthias Lüders
+ */
 public class AddBookmarkHandler extends AbstractHandler {
 
+	/**
+	 * This method bookmarks the selected car for the registered user
+	 */
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IStructuredSelection currentSelection = (IStructuredSelection) HandlerUtil
@@ -33,14 +41,17 @@ public class AddBookmarkHandler extends AbstractHandler {
 			ICar car = (ICar) node.getValue();
 			System.out.println("Selected Car:" + car.getRegistrationNumber());
 
+			// get a reference to the view
 			Car2goView view = (Car2goView) HandlerUtil.getActiveSite(event)
 					.getPage().findView(Car2goView.ID);
 
+			// popup an errorMessage when the user is'nt signed in
 			if (!view.getUser().isSignIn()) {
 				view.errorMessage("Sie müssen angemeldet sein.");
 				return null;
 			}
-			
+
+			// get the ICarService
 			ICarService ics;
 			try {
 				ics = Activator.getDefault().getCarService();
@@ -49,6 +60,7 @@ public class AddBookmarkHandler extends AbstractHandler {
 				return null;
 			}
 
+			// try to bookmark
 			try {
 				ics.addToBookmark(car.getRegistrationNumber(), view.getUser()
 						.getUsername());

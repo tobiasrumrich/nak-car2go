@@ -4,6 +4,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.PartInitException;
@@ -31,11 +32,13 @@ public class CarEditHandler extends AbstractHandler {
 		IStructuredSelection currentSelection = (IStructuredSelection) HandlerUtil
 				.getCurrentSelection(event);
 		if (!currentSelection.isEmpty()) {
-			if (!(currentSelection.getFirstElement() instanceof ICar)) {
+			TreeNode node = (TreeNode) currentSelection.getFirstElement();
+
+			if (!(node.getValue() instanceof ICar)) {
 				System.out.println("CarEditHandler: No car selected!");
 				return null;
 			}
-			ICar car = (ICar) currentSelection.getFirstElement();
+			ICar car = (ICar) node.getValue();
 			System.out.println("Selected Car:" + car.getRegistrationNumber());
 			CarEditorInput carEditorInput = new CarEditorInput(car);
 			try {
@@ -55,7 +58,6 @@ public class CarEditHandler extends AbstractHandler {
 					}
 				});
 			} catch (PartInitException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {

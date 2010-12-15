@@ -6,9 +6,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.jface.viewers.TreeNodeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -73,20 +76,19 @@ public class Car2goView extends ViewPart {
 				false, false, 1, 1));
 		lblSichtAuswhlen.setText("Sicht ausw\u00E4hlen:");
 
-		comboView = new Combo(container, SWT.READ_ONLY);
-		comboView.setItems(new String[] { TANKSTAND, GEOGRAFIE });
-		comboView.select(0);
-
-		comboView.addSelectionListener(new SelectionAdapter() {
-			/**
-			 * redraws the carTree with the selected View
-			 */
+		SelectionAdapter refreshListener = new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				refresh();
 			}
-		});
+		};
+
+		comboView = new Combo(container, SWT.READ_ONLY);
+		comboView.setItems(new String[] { TANKSTAND, GEOGRAFIE });
+		comboView.select(0);
+		comboView.addSelectionListener(refreshListener);
 
 		Button button = new Button(container, SWT.NONE);
+		button.addSelectionListener(refreshListener);
 		button.setImage(ResourceManager.getPluginImage(
 				"de.nordakademie.wpk.team2.car2go.ui",
 				"resources/icons/refresh.png"));
@@ -103,24 +105,21 @@ public class Car2goView extends ViewPart {
 
 		treeViewer = new TreeViewer(container, SWT.BORDER);
 		carTree = treeViewer.getTree();
+		carTree.setLinesVisible(true);
 		carTree.setHeaderVisible(true);
 		carTree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 5, 1));
 
-		TreeColumn treeColumnVacant = new TreeColumn(carTree, SWT.LEFT);
-		treeColumnVacant.setWidth(250);
-		treeColumnVacant.setText("Vakant");
-
 		TreeColumn treeColumnRegistrationNumber = new TreeColumn(carTree,
 				SWT.NONE);
-		treeColumnRegistrationNumber.setWidth(100);
+		treeColumnRegistrationNumber.setWidth(250);
 		treeColumnRegistrationNumber.setText("Kennzeichen");
 
 		TreeColumn treeColumnFuelState = new TreeColumn(carTree, SWT.LEFT);
-		treeColumnFuelState.setWidth(100);
+		treeColumnFuelState.setWidth(80);
 		treeColumnFuelState.setText("Tankstand");
 
 		TreeColumn treeColumnExteriorState = new TreeColumn(carTree, SWT.NONE);
-		treeColumnExteriorState.setWidth(100);
+		treeColumnExteriorState.setWidth(110);
 		treeColumnExteriorState.setText("Au\u00DFenzustand");
 
 		TreeColumn treeColumnInteriorState = new TreeColumn(carTree, SWT.NONE);
@@ -129,40 +128,86 @@ public class Car2goView extends ViewPart {
 
 		TreeColumn treeColumnGeoPoint = new TreeColumn(carTree, SWT.NONE);
 		treeColumnGeoPoint.setToolTipText("Aktuelle Geokoordinaten");
-		treeColumnGeoPoint.setWidth(100);
+		treeColumnGeoPoint.setWidth(120);
 		treeColumnGeoPoint.setText("Geokoordinaten");
 
 		TreeColumn treeColumnLocation = new TreeColumn(carTree, SWT.NONE);
 		treeColumnLocation.setToolTipText("Aktueller Standort");
-		treeColumnLocation.setWidth(100);
+		treeColumnLocation.setWidth(200);
 		treeColumnLocation.setText("Standort");
-
-		// get the username from the user
-		getUsername();
 
 		treeViewer.setContentProvider(new TreeNodeContentProvider());
 		treeViewer.setLabelProvider(new CarLabelProvider());
-		treeViewer.setInput(getCars());
-		treeViewer.expandAll();
 
-		// TODO Sortierung... und so
-		treeViewer.setComparator(new ViewerComparator());
+		// Create the ViewerComparator, to compare ICars and NodeBeans .
+		treeViewer.setComparator(new ViewerComparator() {
+			@Override
+			public int compare(Viewer viewer, Object e1, Object e2) {
+				if (e1 instanceof TreeNode && e2 instanceof TreeNode) {
+					if (((TreeNode) e1).getValue() instanceof ICar
+							&& ((TreeNode) e2).getValue() instanceof ICar) {
+						ICar c1 = (ICar) ((TreeNode) e1).getValue();
+						ICar c2 = (ICar) ((TreeNode) e2).getValue();
+						if (c1 != null && c2 != null) {
+							return (c1.getRegistrationNumber().compareTo(c2
+									.getRegistrationNumber()));
+						}
+					} else if (((TreeNode) e1).getValue() instanceof NodeBean
+							&& ((TreeNode) e2).getValue() instanceof NodeBean) {
+						NodeBean n1 = (NodeBean) ((TreeNode) e1).getValue();
+						NodeBean n2 = (NodeBean) ((TreeNode) e2).getValue();
+						if (n1 != null && n2 != null) {
+							return (n1.getNodeText().compareTo(n2.getNodeText()));
+						}
+					}
+				}
+				return super.compare(viewer, e1, e2);
+			}
+		});
+		treeViewer.setComparer(null);
+		/*
+		 * treeViewer.setComparer(new IElementComparer() {
+		 * 
+		 * @Override public int hashCode(Object element) { return
+		 * element.hashCode(); }
+		 * 
+		 * @Override public boolean equals(Object a, Object b) { if (a
+		 * instanceof TreeNode && b instanceof TreeNode) { if (((TreeNode)
+		 * a).getValue() instanceof ICar && ((TreeNode) b).getValue() instanceof
+		 * ICar) { ICar c1 = (ICar) ((TreeNode) a).getValue(); ICar c2 = (ICar)
+		 * ((TreeNode) b).getValue(); if (c1 != null && c2 != null) { return
+		 * (c1.getRegistrationNumber().equals((c2 .getRegistrationNumber()))); }
+		 * } else if (((TreeNode) a).getValue() instanceof NodeBean &&
+		 * ((TreeNode) b).getValue() instanceof NodeBean) { NodeBean n1 =
+		 * (NodeBean) ((TreeNode) a).getValue(); NodeBean n2 = (NodeBean)
+		 * ((TreeNode) b).getValue(); if (n1 != null && n2 != null) { return
+		 * (n1.getNodeText().equals(n2.getNodeText())); } } } return
+		 * a.equals(b); } });
+		 */
+		// TODO tuh es!
+		treeViewer.addDoubleClickListener(new IDoubleClickListener() {
+
+			@Override
+			public void doubleClick(DoubleClickEvent event) {
+			}
+		});
 
 		// initialize context menu
 		initializeContextMenu();
+		// get the username from the user
+		getUsernameDialog();
+		// refresh the treeView data
+		refresh();
 	}
 
 	/**
-	 * Initialize the ContextMenu
+	 * Refresh the TreeView rebuild the users expanded tree state.
 	 */
-	private void initializeContextMenu() {
-		MenuManager contextMenuManager = new MenuManager();
-		getViewSite().registerContextMenu(contextMenuManager, treeViewer);
-		getViewSite().setSelectionProvider(treeViewer);
-
-		Menu contextMenu = contextMenuManager.createContextMenu(treeViewer
-				.getTree());
-		carTree.setMenu(contextMenu);
+	public void refresh() {
+		Object[] expandedElements = treeViewer.getExpandedElements();
+		treeViewer.setInput(getCars());
+		treeViewer.setExpandedElements(expandedElements);
+		treeViewer.refresh();
 	}
 
 	@Override
@@ -171,14 +216,70 @@ public class Car2goView extends ViewPart {
 	}
 
 	/**
-	 * return the Cars separated by bookmarked and vacant as a List<TreeNode>
+	 * Invokes a Error Message Box with a fancy headline.
+	 * 
+	 * @param message
+	 *            Error message
+	 */
+	public void errorMessage(String message) {
+		MessageBox messageBox = new MessageBox(this.getSite().getShell(),
+				SWT.OK | SWT.ICON_ERROR);
+		messageBox.setText("Ups... das sollte nicht passieren!");
+		messageBox.setMessage(message);
+		messageBox.open();
+	}
+
+	/**
+	 * Returns the UserBean
+	 * 
+	 * @return UserBean
+	 */
+	public UserBean getUser() {
+		return user;
+	}
+
+	/**
+	 * Initialize the ContextMenu
+	 */
+	private void initializeContextMenu() {
+		// TODO richtiges menu einbinden
+		MenuManager contextMenuManager = new MenuManager();
+
+		if (user.isSignIn()) {
+			System.setProperty(
+					"de.nordakademie.wpk.team2.car2go.ui.views.isUserSignedIn",
+					"true");
+		} else {
+			System.setProperty(
+					"de.nordakademie.wpk.team2.car2go.ui.views.isUserSignedIn",
+					"false");
+		}
+		/*
+		 * if (user.isSignIn()) { getViewSite() .registerContextMenu(
+		 * "de.nordakademie.wpk.team2.car2go.ui.views.Car2goView.menuSignedIn",
+		 * contextMenuManager, treeViewer); } else { getViewSite()
+		 * .registerContextMenu(
+		 * "de.nordakademie.wpk.team2.car2go.ui.views.Car2goView.menu",
+		 * contextMenuManager, treeViewer); }
+		 */
+
+		getViewSite().registerContextMenu(contextMenuManager, treeViewer);
+		getViewSite().setSelectionProvider(treeViewer);
+
+		Menu contextMenu = contextMenuManager.createContextMenu(treeViewer
+				.getTree());
+		carTree.setMenu(contextMenu);
+	}
+
+	/**
+	 * This method returns the Cars separated by bookmarked and vacant as an
+	 * array of TreeNodes
 	 * 
 	 * @return The A list of TreeNodes with cars and vacant or bookmarked.
 	 */
 	private TreeNode[] getCars() {
 		TreeNode[] rootTreeNode = new TreeNode[2];
 
-		// Add the root nodes..
 		NodeBean bookmarked;
 		if (user.isSignIn()) {
 			bookmarked = new NodeBean(BOOKMARKED,
@@ -204,14 +305,14 @@ public class Car2goView extends ViewPart {
 
 		// Get the connection to the CarService
 		ICarService ics;
+		Set<ICar> vacantCars;
 		try {
 			ics = Activator.getDefault().getCarService();
 		} catch (ServiceNotAvailableException e1) {
 			TreeNode noVacantNode = new TreeNode(new NodeBean(
-					"Keine Daten gefunden", "resources/icons/tree/bomb.png"));
-			noVacantNode.setParent(nodeVacant);
+					"Keine Daten verfügbar", "resources/icons/tree/bomb.png"));
 			TreeNode noBookmarkedNode = new TreeNode(new NodeBean(
-					"Keine Daten gefunden", "resources/icons/tree/bomb.png"));
+					"Keine Daten verfügbar", "resources/icons/tree/bomb.png"));
 
 			vacantChilds.add(noVacantNode);
 			bookmarkedChilds.add(noBookmarkedNode);
@@ -224,7 +325,7 @@ public class Car2goView extends ViewPart {
 		}
 
 		// Get the vacant cars
-		Set<ICar> vacantCars = ics.getVacantCars();
+		vacantCars = ics.getVacantCars();
 		groupCars(vacantCars, nodeVacant, comboView.getText());
 
 		// Get the bookmarked cars if the user is signed in
@@ -236,15 +337,14 @@ public class Car2goView extends ViewPart {
 			} catch (IllegalUsernameException e) {
 				TreeNode nodeNoBookmarks = new TreeNode(new NodeBean(
 						"Keine Bookmarks vorhanden",
-						"resources/icons/tree/bomb.png"));
+						"resources/icons/GreenBall.png"));
 				bookmarkedChilds.add(nodeNoBookmarks);
 				nodeBookmarked.setChildren(bookmarkedChilds
 						.toArray(treeNodeType));
 			}
 		} else {
 			TreeNode nodeNoBookmarks = new TreeNode(new NodeBean(
-					"Keine Bookmarks vorhanden",
-					"resources/icons/tree/bomb.png"));
+					"Nicht angemeldet", "resources/icons/tree/bomb.png"));
 			bookmarkedChilds.add(nodeNoBookmarks);
 			nodeBookmarked.setChildren(bookmarkedChilds.toArray(treeNodeType));
 		}
@@ -263,9 +363,9 @@ public class Car2goView extends ViewPart {
 	 */
 	private void groupCars(Set<ICar> cars, TreeNode parent, String viewType) {
 		if (viewType.equals(GEOGRAFIE)) {
-			groupCarsByFuel(cars, parent);
-		} else {
 			groupCarsByLocation(cars, parent);
+		} else {
+			groupCarsByFuel(cars, parent);
 		}
 	}
 
@@ -279,6 +379,8 @@ public class Car2goView extends ViewPart {
 	 */
 	private void groupCarsByLocation(Set<ICar> cars, TreeNode parent) {
 		HashMap<String, ArrayList<TreeNode>> locations = new HashMap<String, ArrayList<TreeNode>>();
+		ArrayList<TreeNode> locationNodes = new ArrayList<TreeNode>();
+		TreeNode[] treeNodeType = new TreeNode[0];
 
 		// Map all cars to a location
 		Iterator<ICar> carIterator = cars.iterator();
@@ -287,16 +389,10 @@ public class Car2goView extends ViewPart {
 			TreeNode carNode = new TreeNode(iCar);
 
 			if (!locations.containsKey(iCar.getLocation())) {
-				// Neue location hinzufügen
 				locations.put(iCar.getLocation(), new ArrayList<TreeNode>());
 			}
-			// iCar zur Location hinzufügen
 			locations.get(iCar.getLocation()).add(carNode);
 		}
-
-		// dummy tree for ArrayList Cast
-		TreeNode[] treeNodeType = new TreeNode[0];
-		ArrayList<TreeNode> locationNodes = new ArrayList<TreeNode>();
 
 		// create a node for each location and add the matching cars
 		for (Iterator<String> locationIterator = locations.keySet().iterator(); locationIterator
@@ -325,18 +421,17 @@ public class Car2goView extends ViewPart {
 	 */
 	private void groupCarsByFuel(Set<ICar> cars, TreeNode parent) {
 		TreeNode[] parentChilds = new TreeNode[4];
-		// dummy tree for ArrayList Cast
 		TreeNode[] treeNodeType = new TreeNode[0];
 
 		// Build the goups
 		TreeNode nodeFuelState44 = new TreeNode(new NodeBean("4/4",
-				"resources/icons/tree/100percent.png"));
+				"resources/icons/tree/100percent.png", parent));
 		TreeNode nodeFuelState34 = new TreeNode(new NodeBean("3/4",
-				"resources/icons/tree/75percent.png"));
+				"resources/icons/tree/75percent.png", parent));
 		TreeNode nodeFuelState24 = new TreeNode(new NodeBean("2/4",
-				"resources/icons/tree/50percent.png"));
+				"resources/icons/tree/50percent.png", parent));
 		TreeNode nodeFuelState14 = new TreeNode(new NodeBean("1/4",
-				"resources/icons/tree/25percent.png"));
+				"resources/icons/tree/25percent.png", parent));
 
 		parentChilds[0] = nodeFuelState44;
 		parentChilds[1] = nodeFuelState34;
@@ -374,32 +469,10 @@ public class Car2goView extends ViewPart {
 	}
 
 	/**
-	 * Refresh the TreeView
-	 */
-	public void refresh() {
-		System.out.println("Triggers TreeViewer refresh!");
-		treeViewer.refresh();
-	}
-
-	/**
-	 * Invokes a Error Message Box
-	 * 
-	 * @param message
-	 *            Error message
-	 */
-	public void errorMessage(String message) {
-		MessageBox messageBox = new MessageBox(this.getSite().getShell(),
-				SWT.OK | SWT.ICON_ERROR);
-		messageBox.setText("Ups... das sollte nicht passieren!");
-		messageBox.setMessage(message);
-		messageBox.open();
-	}
-
-	/**
 	 * Invokes a Dialog to get the users user name to identify his bookmarked
 	 * cars and set the SignIn Icons.
 	 */
-	private void getUsername() {
+	private void getUsernameDialog() {
 		UsernameDialog dialog = new UsernameDialog(this.getSite().getShell());
 		dialog.setUserBean(getUser());
 		int returnCode = dialog.open();
@@ -418,14 +491,5 @@ public class Car2goView extends ViewPart {
 					"de.nordakademie.wpk.team2.car2go.ui",
 					"resources/icons/greenBall.png"));
 		}
-	}
-
-	/**
-	 * Returns the UserBean
-	 * 
-	 * @return UserBean
-	 */
-	public UserBean getUser() {
-		return user;
 	}
 }

@@ -11,20 +11,36 @@
       </view>
    </extension>
    <extension
+         id="de.nordakademie.wpk.team2.car2go.ui.views.Car2goView.menuSignedIn"
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
             locationURI="popup:de.nordakademie.wpk.team2.car2go.ui.views.Car2goView">
          <command
-               commandId="de.nordakademie.wpk.team2.car2go.ui.removeBookmark"
+               commandId="de.nordakademie.wpk.team2.car2go.ui.addBookmark"
+               icon="resources/icons/menu/addToBookmark.png"
                style="push">
          </command>
          <command
-               commandId="de.nordakademie.wpk.team2.car2go.ui.addBookmark"
+               commandId="de.nordakademie.wpk.team2.car2go.ui.removeBookmark"
+               icon="resources/icons/menu/removeBookmark.png"
                style="push">
+            <visibleWhen
+                  checkEnabled="true">
+               <and>
+                  <instanceof
+                        value="de.nordakademie.wpk.team2.car2go.core.interfaces.ICar">
+                  </instanceof>
+                  <systemTest
+                        property="de.nordakademie.wpk.team2.car2go.ui.views.isUserSignedIn"
+                        value="true">
+                  </systemTest>
+               </and>
+            </visibleWhen>
          </command>
          <command
                commandId="de.nordakademie.wpk.team2.car2go.ui.addCar"
+               icon="resources/icons/menu/showDetails.png"
                style="push">
          </command>
       </menuContribution>

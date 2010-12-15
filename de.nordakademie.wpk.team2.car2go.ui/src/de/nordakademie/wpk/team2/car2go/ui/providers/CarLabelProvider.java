@@ -32,7 +32,7 @@ public class CarLabelProvider extends LabelProvider implements
 						rootNode.getImagePath());
 
 			}
-		} else if (node instanceof ICar && columnIndex == 0) {
+		} else if (node.getValue() instanceof ICar && columnIndex == 0) {
 			// Images for ICar's
 			ICar car = (ICar) node.getValue();
 			if (car.getVacantState() == true) {
@@ -62,19 +62,19 @@ public class CarLabelProvider extends LabelProvider implements
 				// Text for ICar's
 				ICar car = (ICar) node.getValue();
 				switch (columnIndex) {
-				case 1:
+				case 0:
 					return car.getRegistrationNumber();
-				case 2:
+				case 1:
 					return String.valueOf(car.getFuelState());
-				case 3:
+				case 2:
 					return String.valueOf(car.getExteriorState());
-				case 4:
+				case 3:
 					return String.valueOf(car.getInteriorState());
-				case 5:
+				case 4:
 					return String.valueOf(car.getCoordinates().getLongitude())
-							+ String.valueOf(car.getCoordinates()
+							+ " / "+ String.valueOf(car.getCoordinates()
 									.getLongitude());
-				case 6:
+				case 5:
 					return car.getLocation();
 				default:
 					return "";

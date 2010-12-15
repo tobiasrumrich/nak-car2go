@@ -65,17 +65,21 @@ public class Activator extends AbstractUIPlugin {
 	 * @retun reference to the CarServer
 	 */
 	public ICarService getCarService() throws ServiceNotAvailableException {
-		ServiceReference serviceReference = this.getBundle().getBundleContext()
-				.getServiceReference(ICarService.class.getName());
 
 		try {
+			ServiceReference serviceReference = this.getBundle()
+					.getBundleContext()
+					.getServiceReference(ICarService.class.getName());
+
 			ICarService ics = (ICarService) this.getBundle().getBundleContext()
 					.getService(serviceReference);
+			if (ics == null) {
+				throw new ServiceNotAvailableException();
+			}
 			return ics;
 
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			throw new ServiceNotAvailableException();
 		}
-
 	}
 }

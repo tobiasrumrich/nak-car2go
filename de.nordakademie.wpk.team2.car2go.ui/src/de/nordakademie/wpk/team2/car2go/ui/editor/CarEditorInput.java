@@ -6,7 +6,6 @@ import org.eclipse.ui.IPersistableElement;
 
 import de.nordakademie.wpk.team2.car2go.core.interfaces.ICar;
 
-
 /**
  * CarEditorInput provides the Car for the CarEditor.
  * 
@@ -64,5 +63,4 @@ public class CarEditorInput implements IEditorInput {
 		}
 		return false;
 	}
-
 }

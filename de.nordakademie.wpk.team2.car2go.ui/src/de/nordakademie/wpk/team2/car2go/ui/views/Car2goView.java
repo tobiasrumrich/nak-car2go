@@ -55,6 +55,7 @@ public class Car2goView extends ViewPart {
 	private Label lblSignIn;
 
 	public Car2goView() {
+		setPartName("de.nordakademie.wpk.team2.car2go.ui.views.Car2goView");
 	}
 
 	/**

@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Car2Go" id="de.nordakademie.wpk.team2.car2go.product.Car2Go" application="de.nordakademie.wpk.team2.car2go.product.application" useFeatures="true" includeLaunchers="true">
+<product name="Car2Go" uid="Car2Go" id="de.nordakademie.wpk.team2.car2go.product.Car2Go" application="de.nordakademie.wpk.team2.car2go.product.application" useFeatures="false" includeLaunchers="true">
 
 
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
+      <vmArgs>-Xms40m -Xmx384m</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
    <windowImages i16="/de.nordakademie.wpk.team2.car2go.ui/resources/icons/car2goIcon16x16.png" i32="/de.nordakademie.wpk.team2.car2go.ui/resources/icons/car2goIcon32x32.png"/>
 
-
-   <launcher name="Car2Go Client">
+   <splash
+      startupProgressRect="20,300,460,20" />
+   <launcher name="Car2Go">
       <solaris/>
-      <win useIco="true">
+      <win useIco="false">
          <ico path="/de.nordakademie.wpk.team2.car2go.ui/resources/icons/car2go.ico"/>
-         <bmp/>
+         <bmp
+            winSmallHigh="/de.nordakademie.wpk.team2.car2go.product/car2go1632.bmp"
+            winSmallLow="/de.nordakademie.wpk.team2.car2go.product/car2go168.bmp"
+            winMediumHigh="/de.nordakademie.wpk.team2.car2go.product/car2go3232.bmp"
+            winMediumLow="/de.nordakademie.wpk.team2.car2go.product/car2go328.bmp"
+            winLargeHigh="/de.nordakademie.wpk.team2.car2go.product/car2go4832.bmp"
+            winLargeLow="/de.nordakademie.wpk.team2.car2go.product/car2go488.bmp"/>
       </win>
    </launcher>
 
@@ -27,113 +35,35 @@
       <windows include="true">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6</windows>
    </vm>
 
-
    <plugins>
       <plugin id="com.ibm.icu"/>
-      <plugin id="com.instantiations.designer.jdt.fragment" fragment="true"/>
-      <plugin id="com.instantiations.designer.runtime.lib"/>
-      <plugin id="com.instantiations.eclipse.ui"/>
       <plugin id="com.springsource.org.aopalliance"/>
       <plugin id="de.nordakademie.wpk.team2.car2go.iface"/>
+      <plugin id="de.nordakademie.wpk.team2.car2go.product"/>
       <plugin id="de.nordakademie.wpk.team2.car2go.ui"/>
-      <plugin id="javax.servlet"/>
-      <plugin id="javax.servlet.jsp"/>
-      <plugin id="org.apache.commons.codec"/>
-      <plugin id="org.apache.commons.httpclient"/>
       <plugin id="org.apache.commons.logging"/>
-      <plugin id="org.eclipse.ant.core"/>
-      <plugin id="org.eclipse.compare"/>
-      <plugin id="org.eclipse.compare.core"/>
       <plugin id="org.eclipse.core.commands"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.databinding"/>
       <plugin id="org.eclipse.core.databinding.observable"/>
       <plugin id="org.eclipse.core.databinding.property"/>
       <plugin id="org.eclipse.core.expressions"/>
-      <plugin id="org.eclipse.core.filebuffers"/>
-      <plugin id="org.eclipse.core.filesystem"/>
-      <plugin id="org.eclipse.core.filesystem.win32.x86" fragment="true"/>
       <plugin id="org.eclipse.core.jobs"/>
-      <plugin id="org.eclipse.core.net"/>
-      <plugin id="org.eclipse.core.net.win32.x86" fragment="true"/>
-      <plugin id="org.eclipse.core.resources"/>
-      <plugin id="org.eclipse.core.resources.win32.x86" fragment="true"/>
       <plugin id="org.eclipse.core.runtime"/>
-      <plugin id="org.eclipse.core.runtime.compatibility"/>
-      <plugin id="org.eclipse.core.runtime.compatibility.auth"/>
       <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
-      <plugin id="org.eclipse.core.variables"/>
-      <plugin id="org.eclipse.debug.core"/>
-      <plugin id="org.eclipse.debug.ui"/>
-      <plugin id="org.eclipse.ecf"/>
-      <plugin id="org.eclipse.ecf.filetransfer"/>
-      <plugin id="org.eclipse.ecf.identity"/>
-      <plugin id="org.eclipse.ecf.provider.filetransfer"/>
-      <plugin id="org.eclipse.ecf.provider.filetransfer.ssl" fragment="true"/>
-      <plugin id="org.eclipse.ecf.ssl" fragment="true"/>
       <plugin id="org.eclipse.equinox.app"/>
       <plugin id="org.eclipse.equinox.common"/>
-      <plugin id="org.eclipse.equinox.concurrent"/>
-      <plugin id="org.eclipse.equinox.frameworkadmin"/>
-      <plugin id="org.eclipse.equinox.frameworkadmin.equinox"/>
-      <plugin id="org.eclipse.equinox.p2.artifact.repository"/>
-      <plugin id="org.eclipse.equinox.p2.core"/>
-      <plugin id="org.eclipse.equinox.p2.director"/>
-      <plugin id="org.eclipse.equinox.p2.director.app"/>
-      <plugin id="org.eclipse.equinox.p2.engine"/>
-      <plugin id="org.eclipse.equinox.p2.garbagecollector"/>
-      <plugin id="org.eclipse.equinox.p2.jarprocessor"/>
-      <plugin id="org.eclipse.equinox.p2.metadata"/>
-      <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
-      <plugin id="org.eclipse.equinox.p2.publisher"/>
-      <plugin id="org.eclipse.equinox.p2.repository"/>
-      <plugin id="org.eclipse.equinox.p2.repository.tools"/>
-      <plugin id="org.eclipse.equinox.p2.touchpoint.eclipse"/>
-      <plugin id="org.eclipse.equinox.p2.updatesite"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
-      <plugin id="org.eclipse.equinox.security"/>
-      <plugin id="org.eclipse.equinox.security.win32.x86" fragment="true"/>
-      <plugin id="org.eclipse.equinox.simpleconfigurator"/>
-      <plugin id="org.eclipse.equinox.simpleconfigurator.manipulator"/>
       <plugin id="org.eclipse.help"/>
-      <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
-      <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
-      <plugin id="org.eclipse.jdt.core"/>
-      <plugin id="org.eclipse.jdt.core.manipulation"/>
-      <plugin id="org.eclipse.jdt.debug"/>
-      <plugin id="org.eclipse.jdt.launching"/>
-      <plugin id="org.eclipse.jdt.ui"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
-      <plugin id="org.eclipse.jface.text"/>
-      <plugin id="org.eclipse.ltk.core.refactoring"/>
-      <plugin id="org.eclipse.ltk.ui.refactoring"/>
       <plugin id="org.eclipse.osgi"/>
-      <plugin id="org.eclipse.osgi.services"/>
-      <plugin id="org.eclipse.pde.build"/>
-      <plugin id="org.eclipse.pde.core"/>
-      <plugin id="org.eclipse.search"/>
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
-      <plugin id="org.eclipse.team.core"/>
-      <plugin id="org.eclipse.team.ui"/>
-      <plugin id="org.eclipse.text"/>
       <plugin id="org.eclipse.ui"/>
-      <plugin id="org.eclipse.ui.console"/>
-      <plugin id="org.eclipse.ui.editors"/>
       <plugin id="org.eclipse.ui.forms"/>
-      <plugin id="org.eclipse.ui.ide"/>
-      <plugin id="org.eclipse.ui.navigator"/>
-      <plugin id="org.eclipse.ui.navigator.resources"/>
-      <plugin id="org.eclipse.ui.views"/>
-      <plugin id="org.eclipse.ui.views.properties.tabbed"/>
-      <plugin id="org.eclipse.ui.win32" fragment="true"/>
       <plugin id="org.eclipse.ui.workbench"/>
-      <plugin id="org.eclipse.ui.workbench.texteditor"/>
-      <plugin id="org.eclipse.update.configurator"/>
-      <plugin id="org.sat4j.core"/>
-      <plugin id="org.sat4j.pb"/>
       <plugin id="org.springframework.bundle.osgi.core"/>
       <plugin id="org.springframework.bundle.osgi.extender"/>
       <plugin id="org.springframework.bundle.osgi.io"/>
@@ -151,8 +81,13 @@
    </features>
 
    <configurations>
-      <plugin id="de.nordakademie.wpk.team2.car2go.iface" autoStart="true" startLevel="0" />
-      <plugin id="org.springframework.bundle.osgi.extender" autoStart="true" startLevel="0" />
+      <plugin id="de.nordakademie.wpk.team2.car2go.iface" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.ui.forms" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.ui.workbench" autoStart="true" startLevel="4" />
+      <plugin id="org.springframework.bundle.osgi.extender" autoStart="true" startLevel="4" />
    </configurations>
 
 </product>

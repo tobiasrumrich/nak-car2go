@@ -3,6 +3,8 @@ package de.nordakademie.wpk.team2.car2go.product;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
+import de.nordakademie.wpk.team2.car2go.ui.views.Car2goView;
+
 /*
  * This perspective includes the Car2goView.
  * 
@@ -12,12 +14,9 @@ public class Perspective implements IPerspectiveFactory {
 
 	public void createInitialLayout(IPageLayout layout) {
 		layout.setEditorAreaVisible(true);
-		layout.addStandaloneView(
-				"de.nordakademie.wpk.team2.car2go.ui.views.Car2goView", true,
-				IPageLayout.LEFT, 0.58f, layout.getEditorArea());
+		layout.addStandaloneView(Car2goView.ID, true, IPageLayout.LEFT, 0.65f,
+				"org.eclipse.ui.editorss");
 		layout.setFixed(true);
-		layout.getViewLayout(
-				"de.nordakademie.wpk.team2.car2go.ui.views.Car2goView")
-				.setCloseable(false);
 	}
+
 }

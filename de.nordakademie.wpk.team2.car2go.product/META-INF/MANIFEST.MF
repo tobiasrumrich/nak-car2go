@@ -6,6 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: de.nordakademie.wpk.team2.car2go.product.Activator
 Bundle-Vendor: Team 2
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ de.nordakademie.wpk.team2.car2go.ui;bundle-version="1.0.0",
+ de.nordakademie.wpk.team2.car2go.iface;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
